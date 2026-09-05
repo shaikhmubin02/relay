@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+{% import "_macros.html" as ui %}
+{% block title %}{{ shift.title }} — Relay{% endblock %}
+
+{% block content %}
+<p style="margin:24px 0 0"><a href="/">&larr; All coverage</a></p>
+<h1 style="margin-top:6px">{{ shift.title }}</h1>
+<p class="sub">
+  {{ ui.state_pill(workflow.state, label) }}
+  &nbsp;<span class="mono">{{ shift.starts_at[11:16] }}–{{ shift.ends_at[11:16] }}</span>
+  · {{ shift.location }}
+  {% if shift.required_certification %}· requires <span class="mono">{{ shift.required_certification }}</span>{% endif %}
+  · slot {{ workflow.slot_no }}
+</p>
+
+{# ---------------- decision card ---------------- #}
+{% if escalation and escalation.status == 'open' %}
+<div class="decision">
+  <span class="pill warn"><span class="glyph" aria-hidden="true">&#9679;</span>Needs your decision</span>
+  <p class="question">{{ escalation.question }}</p>
+
+  <div class="evidence">
+    <h3 style="margin-top:0">What Relay found</h3>
+    <p style="margin:0 0 10px">{{ escalation.evidence.agent_summary }}</p>
+    <table>
+      <thead><tr><th>Volunteer</th><th>Why they were not asked</th></tr></thead>
+      <tbody>
+      {% for x in escalation.evidence.exclusions %}
+        <tr>
+          <td>{{ x.name }}</td>
+          <td>{{ x.explanation }}<br><span class="mono" style="color:var(--muted)">{{ x.codes | join(', ') }}</span></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <form method="post" action="/workflows/{{ workflow.id }}/decide">
+    <input type="hidden" name="escalation_id" value="{{ escalation.id }}">
+    <h3>Your options</h3>
+    <div class="options">
+      {% for option in escalation.options %}
+      <div class="option">
+        <input type="radio" id="opt-{{ option }}" name="decision" value="{{ option }}" {% if loop.first %}checked{% endif %}>
+        <label for="opt-{{ option }}">
+          {{ option_labels.get(option, option) }}
+          {% if option == 'assign_specific_volunteer' %}
+          <span class="hint">Relay still refuses anyone who lacks an organisation-verified requirement.
+            Fix the source record first if the requirement is wrong.</span>
+          <select name="volunteer_id" style="margin-top:8px">
+            <option value="">Choose a volunteer…</option>
+            {% for v in assignable %}
+            <option value="{{ v.id }}">{{ v.name }}{% if v.certifications %} — {{ v.certifications }}{% endif %}</option>
+            {% endfor %}
+          </select>
+          {% elif option == 'correct_source_data' %}
+          <span class="hint">Closes the gap here so it stops asking. Relay does not edit the source system.</span>
+          {% elif option == 'retry_outreach' %}
+          <span class="hint">Runs another round against anyone who has become eligible since.</span>
+          {% elif option == 'mark_unresolved' %}
+          <span class="hint">Recorded as uncovered, with the reason, on the receipt.</span>
+          {% endif %}
+        </label>
+      </div>
+      {% endfor %}
+    </div>
+    <p style="margin-top:16px"><button type="submit">Apply this decision</button></p>
+  </form>
+</div>
+{% elif escalation %}
+<div class="card">
+  <h2 style="margin-top:0">Decision recorded</h2>
+  <p><strong>{{ escalation.question }}</strong></p>
+  <p style="color:var(--muted)">{{ escalation.resolution }} — {{ escalation.resolved_by }} at
+    <span class="mono">{{ escalation.resolved_at }}</span>.</p>
+</div>
+{% endif %}
+
+{# ---------------- summary ---------------- #}
+<div class="card">
+  <h2 style="margin-top:0">What happened</h2>
+  <p class="big">{{ receipt.summary or 'No summary recorded yet.' }}</p>
+  <dl class="kv">
+    <dt>Cancelled by</dt><dd>{{ cancelled_by }} at <span class="mono">{{ event.received_at }}</span></dd>
+    <dt>Source event</dt><dd class="mono">{{ event.source_event_id }}</dd>
+    <dt>Shift version</dt><dd class="mono">{{ shift.version }} (at intake: {{ event.shift_version }})</dd>
+    <dt>Planner</dt><dd class="mono">{{ workflow.model_provider or 'not recorded' }}</dd>
+    <dt>Budget used</dt><dd class="mono">{{ workflow.model_calls }} model calls · {{ workflow.tool_calls }} tool calls · {{ workflow.emails_sent }} messages</dd>
+  </dl>
+  {% if event.note %}
+  <h3>Note the volunteer wrote</h3>
+  <p class="quote">{{ event.note }}</p>
+  <p style="color:var(--muted);font-size:13.5px">Relay reads this for meaning only. Text arriving in data is
+    never treated as an instruction; any attempt is recorded in the trace below.</p>
+  {% endif %}
+</div>
+
+{# ---------------- contact attempts ---------------- #}
+<div class="card">
+  <h2 style="margin-top:0">Who Relay asked</h2>
+  {% if receipt.contact_attempts %}
+  <table>
+    <thead><tr><th>Volunteer</th><th>Status</th><th>Sent</th><th>Deadline</th><th>Why this person</th></tr></thead>
+    <tbody>
+    {% for a in receipt.contact_attempts %}
+      <tr>
+        <td><strong>{{ a.name }}</strong></td>
+        <td>{{ ui.outreach_pill(a.status) }}</td>
+        <td class="num mono">{{ a.sent_at[11:16] }}</td>
+        <td class="num mono">{{ a.expires_at[11:16] }}</td>
+        <td style="color:var(--muted)">{{ a.rationale or '—' }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p style="color:var(--muted);font-size:13.5px;margin-bottom:0">A request that was sent is not coverage.
+    Only an accepted request changes the rota.</p>
+  {% else %}
+  <p class="empty">Nobody was contacted.</p>
+  {% endif %}
+</div>
+
+{# ---------------- exclusions ---------------- #}
+<div class="card">
+  <h2 style="margin-top:0">Who Relay ruled out, and why</h2>
+  <table>
+    <thead><tr><th>Volunteer</th><th>Reason</th><th>Codes</th></tr></thead>
+    <tbody>
+    {% for x in candidates.excluded %}
+      <tr>
+        <td>{{ x.name }}</td>
+        <td>{{ x.explanation }}</td>
+        <td class="mono" style="color:var(--muted)">{{ x.codes | join(', ') }}</td>
+      </tr>
+    {% endfor %}
+    {% for c in candidates.eligible %}
+      <tr>
+        <td>{{ c.name }}</td>
+        <td><span class="pill ok"><span class="glyph" aria-hidden="true">&#10003;</span>Eligible now</span></td>
+        <td class="mono" style="color:var(--muted)">—</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{# ---------------- roster change ---------------- #}
+<div class="card">
+  <h2 style="margin-top:0">Roster change</h2>
+  {% if receipt.roster_change %}
+  <p><span class="pill ok"><span class="glyph" aria-hidden="true">&#10003;</span>Confirmed</span>
+    <strong>{{ receipt.roster_change.volunteer }}</strong> now holds slot {{ workflow.slot_no }},
+    recorded at <span class="mono">{{ receipt.roster_change.created_at }}</span>
+    (<span class="mono">{{ receipt.roster_change.assignment_id }}</span>, source
+    <span class="mono">{{ receipt.roster_change.source }}</span>).</p>
+  {% else %}
+  <p class="empty">The rota has not been changed. The slot is still open.</p>
+  {% endif %}
+</div>
+
+{# ---------------- messages ---------------- #}
+<div class="card">
+  <h2 style="margin-top:0">Messages</h2>
+  {% if receipt.messages %}
+  <table>
+    <thead><tr><th>To</th><th>Subject</th><th>Kind</th><th>Delivery</th><th>Provider id</th></tr></thead>
+    <tbody>
+    {% for m in receipt.messages %}
+      <tr>
+        <td class="mono">{{ m.to_email }}</td>
+        <td>{{ m.subject }}</td>
+        <td class="mono" style="color:var(--muted)">{{ m.kind }}</td>
+        <td>{{ ui.delivery_pill(m.status) }}</td>
+        <td class="mono" style="color:var(--muted)">{{ m.provider_message_id or '—' }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p style="margin-bottom:0"><a href="/inbox">Open the test inbox to read them &rarr;</a></p>
+  {% else %}
+  <p class="empty">No messages were queued.</p>
+  {% endif %}
+</div>
+
+{# ---------------- timeline ---------------- #}
+<div class="card">
+  <h2 style="margin-top:0">Timeline</h2>
+  <ol class="timeline">
+  {% for t in receipt.transitions %}
+    <li>
+      <div class="when">{{ t.at }}</div>
+      <div class="what">{{ state_labels.get(t.to_state, t.to_state) }}</div>
+      <div class="detail">{{ t.reason }}</div>
+    </li>
+  {% endfor %}
+  </ol>
+</div>
+
+{# ---------------- trace ---------------- #}
+<div class="card">
+  <h2 style="margin-top:0">Action trace</h2>
+  <p style="color:var(--muted)">Every tool call, refusal and side effect Relay recorded, with email local
+    parts masked. This is observed behaviour, not the model's private reasoning.</p>
+  <table>
+    <thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Outcome</th><th>Detail</th></tr></thead>
+    <tbody>
+    {% for a in receipt.audit %}
+      <tr>
+        <td class="num mono">{{ a.at[11:19] }}</td>
+        <td class="mono">{{ a.actor }}</td>
+        <td class="mono">{{ a.action }}</td>
+        <td>{% if a.outcome == 'ok' %}<span class="pill ok"><span class="glyph" aria-hidden="true">&#10003;</span>ok</span>
+            {% elif a.outcome == 'denied' %}<span class="pill stop"><span class="glyph" aria-hidden="true">&#9587;</span>refused</span>
+            {% else %}<span class="pill warn"><span class="glyph" aria-hidden="true">!</span>{{ a.outcome }}</span>{% endif %}</td>
+        <td class="mono" style="color:var(--muted);word-break:break-word">{{ a.detail }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <details class="trace" style="margin-top:16px">
+    <summary>Full receipt as JSON</summary>
+    <pre>{{ receipt_json }}</pre>
+  </details>
+</div>
+{% endblock %}

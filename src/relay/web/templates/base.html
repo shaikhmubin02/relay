@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Relay{% endblock %}</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+{% block chrome %}
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/">Relay <span>volunteer shift recovery</span></a>
+    {% if coordinator %}
+    <nav>
+      <a href="/">Coverage</a>
+      <a href="/roster">Roster</a>
+      <a href="/inbox">Test inbox</a>
+      <form method="post" action="/logout"><button class="link" type="submit">Sign out</button></form>
+    </nav>
+    {% endif %}
+  </div>
+</header>
+
+{% if demo_clock.active %}
+<div class="banner demo">
+  <strong>Demo clock</strong>
+  <span>Showing <code>{{ demo_clock.demo_now }}</code> ({{ demo_clock.offset_human }} from real time
+  <code>{{ demo_clock.real_now }}</code>). The seeded scenario runs on a fixed timeline so the same story
+  reproduces at any hour. Time still moves forward on its own.</span>
+</div>
+{% endif %}
+{% if ephemeral %}
+<div class="banner demo">
+  <strong>Hosted demo</strong>
+  <span>This instance runs on serverless functions: the database lives in the instance's own
+  temporary storage and resets when the instance recycles, and the deadline worker runs on page
+  load rather than on a thread. Run it locally for the persistent version &mdash; see the README.</span>
+</div>
+{% endif %}
+{% if transport == 'fake' %}
+<div class="banner demo">
+  <strong>Test delivery</strong>
+  <span>Email is captured in Relay's built-in test inbox, not sent. Allowlisted domains:
+  <code>{{ allowlist | join(', ') }}</code>.</span>
+</div>
+{% endif %}
+{% if insecure_defaults and coordinator %}
+<div class="banner insecure">
+  <strong>Development secrets in use</strong>
+  <span>Set <code>RELAY_TOKEN_SECRET</code> and <code>RELAY_COORDINATOR_TOKEN</code> before using this
+  with anything real.</span>
+</div>
+{% endif %}
+{% if faults %}
+<div class="banner insecure">
+  <strong>Fault injected</strong>
+  <span>{{ faults | join(', ') }} — armed deliberately to demonstrate recovery.</span>
+</div>
+{% endif %}
+{% endblock %}
+
+<main class="wrap">
+{% block content %}{% endblock %}
+</main>
+
+<footer class="foot">
+  <div class="wrap" style="padding-bottom:0">
+    Relay — synthetic demonstration data only. Names, addresses and availability in this build are invented;
+    no real volunteer records are present.
+  </div>
+</footer>
+</body>
+</html>

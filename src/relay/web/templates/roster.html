@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Roster — Relay{% endblock %}
+{% block content %}
+<h1>Roster</h1>
+<p class="sub">Synthetic records imported from <span class="mono">data/fixtures</span>. Relay reads these;
+  it never edits certification, opt-in status or availability.</p>
+
+<div class="card flat">
+<table>
+  <thead><tr><th>Volunteer</th><th>Opted in</th><th>Certifications</th><th>Availability</th><th>Quiet hours</th><th>Weekly cap</th></tr></thead>
+  <tbody>
+  {% for v in volunteers %}
+  <tr>
+    <td><strong>{{ v.name }}</strong>{% if not v.active %} <span class="pill mute">inactive</span>{% endif %}
+      <br><span class="mono" style="color:var(--muted)">{{ v.email }}</span>
+      {% if v.notes %}<br><span style="color:var(--muted);font-size:13px">{{ v.notes }}</span>{% endif %}
+    </td>
+    <td>{% if v.opted_in %}<span class="pill ok"><span class="glyph" aria-hidden="true">&#10003;</span>Yes</span>
+        {% else %}<span class="pill mute"><span class="glyph" aria-hidden="true">&#9675;</span>No</span>{% endif %}</td>
+    <td class="mono">{{ v.certifications or '—' }}</td>
+    <td class="mono">{{ v.availability or '— not set —' }}</td>
+    <td class="mono">{{ v.quiet_hours }}</td>
+    <td class="num mono">{{ v.max_requests_per_week }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<h2>Assignments</h2>
+<div class="card flat">
+<table>
+  <thead><tr><th>Shift</th><th>Volunteer</th><th>Slot</th><th>Status</th><th>Source</th></tr></thead>
+  <tbody>
+  {% for a in assignments %}
+  <tr>
+    <td>{{ a.shift_title }}</td>
+    <td>{{ a.volunteer_name }}</td>
+    <td class="num">{{ a.slot_no }}</td>
+    <td>{% if a.status == 'confirmed' %}<span class="pill ok"><span class="glyph" aria-hidden="true">&#10003;</span>Confirmed</span>
+        {% else %}<span class="pill mute"><span class="glyph" aria-hidden="true">&#9587;</span>Cancelled</span>{% endif %}</td>
+    <td class="mono" style="color:var(--muted)">{{ a.source }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

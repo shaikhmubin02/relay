@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% import "_macros.html" as ui %}
+{% block title %}Coverage — Relay{% endblock %}
+
+{% block content %}
+<h1>Coverage</h1>
+<p class="sub">{{ policy.org_name }} · policy version in force · Relay acts inside these rules and stops when it cannot.</p>
+
+{% if not seeded %}
+<div class="card">
+  <h2>Nothing loaded yet</h2>
+  <p>Load the synthetic demo organisation to get started: twelve invented volunteers, five shifts,
+     and a set of cancellation scenarios.</p>
+  <form method="post" action="/demo/seed"><button type="submit">Load demo data</button></form>
+</div>
+{% else %}
+
+<h2>Needs your decision <span class="pill warn">{{ decisions | length }}</span></h2>
+{% if decisions %}
+  {% for w in decisions %}
+  <div class="card">
+    <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap">
+      {{ ui.state_pill(w.state, w.label) }}
+      <strong>{{ w.shift_title }}</strong>
+      <span class="mono" style="color:var(--muted)">{{ w.starts_at }}</span>
+    </div>
+    <p style="margin:8px 0 12px">{{ w.reason }} — {{ w.cancelled_by }} cancelled.</p>
+    <a class="btn" href="/workflows/{{ w.id }}">Open the decision</a>
+  </div>
+  {% endfor %}
+{% else %}
+<div class="card flat"><p class="empty">Nothing is waiting on you. Relay will ask only when a rule or a
+  missing option needs a person.</p></div>
+{% endif %}
+
+<h2>Relay is working on <span class="pill wait">{{ open_gaps | length }}</span></h2>
+{% if open_gaps %}
+<div class="card flat">
+<table>
+  <thead><tr><th>Shift</th><th>Status</th><th>Cancelled by</th><th>Next check</th><th></th></tr></thead>
+  <tbody>
+  {% for w in open_gaps %}
+    <tr>
+      <td><strong>{{ w.shift_title }}</strong><br><span class="mono" style="color:var(--muted)">{{ w.starts_at }}</span></td>
+      <td>{{ ui.state_pill(w.state, w.label) }}<br><span style="color:var(--muted);font-size:13px">{{ w.reason }}</span></td>
+      <td>{{ w.cancelled_by }}</td>
+      <td class="num mono">{{ w.awaiting_until or w.next_action_at or '—' }}</td>
+      <td><a href="/workflows/{{ w.id }}">Details</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<div class="card flat"><p class="empty">No coverage gaps in progress.</p></div>
+{% endif %}
+
+<h2>Recently finished</h2>
+{% if recent %}
+<div class="card flat">
+<table>
+  <thead><tr><th>Shift</th><th>Outcome</th><th>Detail</th><th></th></tr></thead>
+  <tbody>
+  {% for w in recent %}
+    <tr>
+      <td><strong>{{ w.shift_title }}</strong></td>
+      <td>{{ ui.state_pill(w.state, w.label) }}</td>
+      <td style="color:var(--muted)">{{ w.reason }}</td>
+      <td><a href="/workflows/{{ w.id }}">Receipt</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<div class="card flat"><p class="empty">Nothing finished yet.</p></div>
+{% endif %}
+
+<h2>Today's rota</h2>
+<div class="card flat">
+<table>
+  <thead><tr><th>Shift</th><th>When</th><th>Requires</th><th>Cover</th></tr></thead>
+  <tbody>
+  {% for s in shifts %}
+    <tr>
+      <td><strong>{{ s.title }}</strong><br><span style="color:var(--muted);font-size:13px">{{ s.location }}</span></td>
+      <td class="num mono">{{ s.starts_at[11:16] }}–{{ s.ends_at[11:16] }}</td>
+      <td>{% if s.required_certification %}<span class="mono">{{ s.required_certification }}</span>{% else %}<span style="color:var(--muted)">—</span>{% endif %}</td>
+      <td>
+        {% if s.covered %}<span class="pill ok"><span class="glyph" aria-hidden="true">&#10003;</span>{{ s.holder }}</span>
+        {% else %}<span class="pill stop"><span class="glyph" aria-hidden="true">&#9587;</span>Open slot</span>{% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endif %}
+
+<h2>Demo controls</h2>
+<p class="sub">These belong to the demonstration, not to the product. They are here so a reviewer can
+  reproduce every path — including the failures — without waiting or configuring anything.</p>
+
+<div class="grid">
+  <div class="card">
+    <h3>Trigger a cancellation</h3>
+    {% for key, s in scenarios.items() %}
+    <form method="post" action="/demo/scenario" style="margin-bottom:8px">
+      <input type="hidden" name="scenario" value="{{ key }}">
+      <button class="secondary small" type="submit">{{ s.label }}</button>
+    </form>
+    {% endfor %}
+  </div>
+
+  <div class="card">
+    <h3>Prove the safeguards</h3>
+    <form method="post" action="/demo/replay" style="margin-bottom:8px">
+      <input type="hidden" name="scenario" value="hero">
+      <input type="hidden" name="times" value="3">
+      <button class="secondary small" type="submit">Replay the same event 3×</button>
+      <span class="hint" style="display:block;color:var(--muted);font-size:13px">Expect one workflow, one round of outreach.</span>
+    </form>
+    <form method="post" action="/demo/fault" style="margin-bottom:8px">
+      <input type="hidden" name="name" value="delivery_unknown">
+      <button class="secondary small" type="submit">Make the next send indeterminate</button>
+      <span class="hint" style="display:block;color:var(--muted);font-size:13px">Expect an escalation, never a blind resend.</span>
+    </form>
+    <form method="post" action="/demo/fault">
+      <input type="hidden" name="name" value="clear">
+      <button class="secondary small" type="submit">Clear injected faults</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>Move time forward</h3>
+    <div class="controls">
+      <form method="post" action="/demo/advance" class="inline">
+        <input type="hidden" name="minutes" value="30">
+        <button class="secondary small" type="submit">+30 minutes</button>
+      </form>
+      <form method="post" action="/demo/tick" class="inline">
+        <button class="secondary small" type="submit">Run the worker now</button>
+      </form>
+    </div>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:0">Response windows are 25 minutes. Skipping
+      past one shows the no-reply path: Relay moves to the next eligible volunteer, then escalates.</p>
+  </div>
+
+  <div class="card">
+    <h3>Start over</h3>
+    <form method="post" action="/demo/seed">
+      <button class="secondary small" type="submit">Reset to fresh demo data</button>
+    </form>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:0">Drops the database and reloads
+      <span class="mono">data/fixtures</span>.</p>
+  </div>
+</div>
+{% endblock %}

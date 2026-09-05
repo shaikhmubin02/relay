@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="790" viewBox="0 0 1120 790" font-family="ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#152b3c"/>
+    </marker>
+    <marker id="arrowTeal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#007f82"/>
+    </marker>
+    <marker id="arrowGrey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9aa5"/>
+    </marker>
+  </defs>
+
+  <rect width="1120" height="790" fill="#ffffff"/>
+
+  <text x="40" y="46" font-size="24" font-weight="700" fill="#152b3c">Relay — volunteer shift recovery</text>
+  <text x="40" y="70" font-size="14.5" fill="#526575">The model interprets and drafts. Code decides what is permitted and performs every side effect.</text>
+
+  <!-- ============ trust boundary ============ -->
+  <rect x="40" y="96" width="1040" height="330" rx="12" fill="#f6f8f9" stroke="#c9d6db" stroke-dasharray="6 5"/>
+  <text x="58" y="118" font-size="11.5" font-weight="700" fill="#526575" letter-spacing="1.2">MODEL-INFLUENCED — NOTHING HERE IS TRUSTED</text>
+
+  <!-- intake -->
+  <rect x="60" y="140" width="200" height="86" rx="9" fill="#eaf5f4" stroke="#007f82"/>
+  <text x="160" y="167" font-size="14" font-weight="650" fill="#152b3c" text-anchor="middle">Cancellation intake</text>
+  <text x="160" y="187" font-size="12" fill="#526575" text-anchor="middle">POST /api/intake/cancellation</text>
+  <text x="160" y="204" font-size="12" fill="#526575" text-anchor="middle">token auth · dedupe by</text>
+  <text x="160" y="219" font-size="12" fill="#526575" text-anchor="middle">source_event_id</text>
+
+  <!-- agent -->
+  <rect x="320" y="130" width="240" height="106" rx="9" fill="#eaf5f4" stroke="#007f82" stroke-width="2"/>
+  <text x="440" y="156" font-size="14.5" font-weight="700" fill="#152b3c" text-anchor="middle">Strands Agent</text>
+  <text x="440" y="176" font-size="12" fill="#526575" text-anchor="middle">reads the free-text note, ranks</text>
+  <text x="440" y="191" font-size="12" fill="#526575" text-anchor="middle">candidates, writes the human</text>
+  <text x="440" y="206" font-size="12" fill="#526575" text-anchor="middle">sentences, decides to escalate</text>
+  <text x="440" y="226" font-size="11.5" font-style="italic" fill="#007f82" text-anchor="middle">hooks: budget + action trace</text>
+
+  <!-- model providers -->
+  <rect x="620" y="130" width="200" height="50" rx="9" fill="#ffffff" stroke="#8b9aa5"/>
+  <text x="720" y="150" font-size="12.5" font-weight="650" fill="#152b3c" text-anchor="middle">BedrockModel</text>
+  <text x="720" y="167" font-size="11.5" fill="#526575" text-anchor="middle">Claude on Amazon Bedrock</text>
+
+  <rect x="620" y="188" width="200" height="50" rx="9" fill="#ffffff" stroke="#8b9aa5" stroke-dasharray="4 3"/>
+  <text x="720" y="208" font-size="12.5" font-weight="650" fill="#152b3c" text-anchor="middle">OfflineModel</text>
+  <text x="720" y="225" font-size="11.5" fill="#526575" text-anchor="middle">deterministic, no credentials</text>
+
+  <text x="880" y="152" font-size="11.5" fill="#526575">Whichever runs is recorded</text>
+  <text x="880" y="169" font-size="11.5" fill="#526575">on the workflow and printed</text>
+  <text x="880" y="186" font-size="11.5" fill="#526575">on every receipt.</text>
+
+  <!-- tools -->
+  <rect x="60" y="270" width="760" height="130" rx="9" fill="#ffffff" stroke="#007f82"/>
+  <text x="80" y="294" font-size="13" font-weight="700" fill="#152b3c">Five tools — the only things the model can do</text>
+
+  <rect x="80" y="308" width="138" height="34" rx="6" fill="#eaf5f4" stroke="#9ec9c9"/>
+  <text x="149" y="330" font-size="11.5" font-family="ui-monospace, Menlo, Consolas, monospace" fill="#152b3c" text-anchor="middle">load_shift_context</text>
+
+  <rect x="228" y="308" width="138" height="34" rx="6" fill="#eaf5f4" stroke="#9ec9c9"/>
+  <text x="297" y="330" font-size="11.5" font-family="ui-monospace, Menlo, Consolas, monospace" fill="#152b3c" text-anchor="middle">eligible_volunteers</text>
+
+  <rect x="376" y="308" width="138" height="34" rx="6" fill="#eaf5f4" stroke="#9ec9c9"/>
+  <text x="445" y="330" font-size="11.5" font-family="ui-monospace, Menlo, Consolas, monospace" fill="#152b3c" text-anchor="middle">request_coverage</text>
+
+  <rect x="524" y="308" width="128" height="34" rx="6" fill="#eaf5f4" stroke="#9ec9c9"/>
+  <text x="588" y="330" font-size="11.5" font-family="ui-monospace, Menlo, Consolas, monospace" fill="#152b3c" text-anchor="middle">escalate_gap</text>
+
+  <rect x="662" y="308" width="128" height="34" rx="6" fill="#eaf5f4" stroke="#9ec9c9"/>
+  <text x="726" y="330" font-size="11.5" font-family="ui-monospace, Menlo, Consolas, monospace" fill="#152b3c" text-anchor="middle">write_receipt</text>
+
+  <rect x="80" y="354" width="710" height="34" rx="6" fill="#fbeaea" stroke="#e6bcbc"/>
+  <text x="435" y="376" font-size="12" fill="#8a2b2b" text-anchor="middle">
+    record_acceptance is deliberately NOT in this list — the model cannot put anyone on a rota
+  </text>
+
+  <!-- ============ enforcement ============ -->
+  <rect x="40" y="450" width="1040" height="132" rx="12" fill="#eef6f5" stroke="#007f82" stroke-width="2"/>
+  <text x="58" y="474" font-size="11.5" font-weight="700" fill="#00696c" letter-spacing="1.2">ENFORCEMENT — relay/operations.py + relay/policy.py</text>
+  <text x="58" y="497" font-size="13.5" fill="#152b3c">Re-derives every fact from the database and re-applies organisation policy on every call, on the assumption the caller was persuaded to ask for something it should not.</text>
+
+  <rect x="60" y="510" width="188" height="54" rx="7" fill="#ffffff" stroke="#9ec9c9"/>
+  <text x="154" y="531" font-size="12.5" font-weight="650" fill="#152b3c" text-anchor="middle">Eligibility rules</text>
+  <text x="154" y="549" font-size="11" fill="#526575" text-anchor="middle">cert · opt-in · availability</text>
+
+  <rect x="258" y="510" width="188" height="54" rx="7" fill="#ffffff" stroke="#9ec9c9"/>
+  <text x="352" y="531" font-size="12.5" font-weight="650" fill="#152b3c" text-anchor="middle">Blast-radius caps</text>
+  <text x="352" y="549" font-size="11" fill="#526575" text-anchor="middle">wave size · quiet hours · budgets</text>
+
+  <rect x="456" y="510" width="188" height="54" rx="7" fill="#ffffff" stroke="#9ec9c9"/>
+  <text x="550" y="531" font-size="12.5" font-weight="650" fill="#152b3c" text-anchor="middle">Approved templates</text>
+  <text x="550" y="549" font-size="11" fill="#526575" text-anchor="middle">model prose sanitised</text>
+
+  <rect x="654" y="510" width="188" height="54" rx="7" fill="#ffffff" stroke="#9ec9c9"/>
+  <text x="748" y="531" font-size="12.5" font-weight="650" fill="#152b3c" text-anchor="middle">Recipient allowlist</text>
+  <text x="748" y="549" font-size="11" fill="#526575" text-anchor="middle">checked twice</text>
+
+  <rect x="852" y="510" width="208" height="54" rx="7" fill="#ffffff" stroke="#9ec9c9"/>
+  <text x="956" y="531" font-size="12.5" font-weight="650" fill="#152b3c" text-anchor="middle">Bound approvals</text>
+  <text x="956" y="549" font-size="11" fill="#526575" text-anchor="middle">params · shift version · expiry</text>
+
+  <!-- ============ state and effects ============ -->
+  <rect x="40" y="606" width="330" height="152" rx="10" fill="#ffffff" stroke="#152b3c"/>
+  <text x="60" y="630" font-size="13" font-weight="700" fill="#152b3c">Durable state — SQLite (WAL)</text>
+  <text x="60" y="652" font-size="11.5" fill="#526575">workflows · outreach · outbox · assignments</text>
+  <text x="60" y="669" font-size="11.5" fill="#526575">escalations · approvals · audit_log · receipts</text>
+  <rect x="60" y="681" width="290" height="28" rx="5" fill="#e6f4ec" stroke="#bfe0cd"/>
+  <text x="205" y="700" font-size="11" fill="#1c6b47" text-anchor="middle">UNIQUE(shift, slot) WHERE confirmed — no double-book</text>
+  <rect x="60" y="715" width="290" height="28" rx="5" fill="#e6f4ec" stroke="#bfe0cd"/>
+  <text x="205" y="734" font-size="11" fill="#1c6b47" text-anchor="middle">UNIQUE(idempotency_key) — no duplicate send</text>
+
+  <rect x="392" y="606" width="300" height="152" rx="10" fill="#ffffff" stroke="#152b3c"/>
+  <text x="412" y="630" font-size="13" font-weight="700" fill="#152b3c">Side effects</text>
+  <text x="412" y="652" font-size="11.5" fill="#526575">Outbox row written in the same transaction</text>
+  <text x="412" y="669" font-size="11.5" fill="#526575">as the state change that justifies it.</text>
+  <rect x="412" y="681" width="260" height="28" rx="5" fill="#eaf5f4" stroke="#9ec9c9"/>
+  <text x="542" y="700" font-size="11" fill="#152b3c" text-anchor="middle">Transport: test inbox (default) or SMTP</text>
+  <rect x="412" y="715" width="260" height="28" rx="5" fill="#fdf1dc" stroke="#eccf95"/>
+  <text x="542" y="734" font-size="11" fill="#8a5a00" text-anchor="middle">Unknown delivery → escalate, never resend</text>
+
+  <rect x="714" y="606" width="366" height="152" rx="10" fill="#ffffff" stroke="#152b3c"/>
+  <text x="734" y="630" font-size="13" font-weight="700" fill="#152b3c">Worker — every deadline is a row, not a sleep</text>
+  <text x="734" y="652" font-size="11.5" fill="#526575">expire requests · start the next wave · reconcile</text>
+  <text x="734" y="669" font-size="11.5" fill="#526575">deliveries · back off after a model failure</text>
+  <rect x="734" y="681" width="326" height="28" rx="5" fill="#e6f0f6" stroke="#b9d3e2"/>
+  <text x="897" y="700" font-size="11" fill="#1f5673" text-anchor="middle">Restarting resumes from disk; nothing is resent</text>
+  <rect x="734" y="715" width="326" height="28" rx="5" fill="#e6f0f6" stroke="#b9d3e2"/>
+  <text x="897" y="734" font-size="11" fill="#1f5673" text-anchor="middle">Volunteer link → atomic slot claim (POST only)</text>
+
+  <!-- ============ people ============ -->
+  <rect x="852" y="270" width="208" height="130" rx="9" fill="#fffaf0" stroke="#e0b567"/>
+  <text x="956" y="294" font-size="13" font-weight="700" fill="#152b3c" text-anchor="middle">Coordinator</text>
+  <text x="956" y="316" font-size="11.5" fill="#526575" text-anchor="middle">1 · quiet overview</text>
+  <text x="956" y="334" font-size="11.5" fill="#526575" text-anchor="middle">2 · decision card</text>
+  <text x="956" y="352" font-size="11.5" fill="#526575" text-anchor="middle">3 · action receipt</text>
+  <text x="956" y="378" font-size="11" font-style="italic" fill="#8a5a00" text-anchor="middle">asked only when a rule or a</text>
+  <text x="956" y="392" font-size="11" font-style="italic" fill="#8a5a00" text-anchor="middle">missing option needs a person</text>
+
+  <!-- ============ arrows ============ -->
+  <line x1="260" y1="183" x2="316" y2="183" stroke="#152b3c" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="560" y1="155" x2="616" y2="155" stroke="#8b9aa5" stroke-width="1.6" marker-end="url(#arrowGrey)"/>
+  <line x1="560" y1="213" x2="616" y2="213" stroke="#8b9aa5" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#arrowGrey)"/>
+
+  <line x1="440" y1="236" x2="440" y2="266" stroke="#152b3c" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="452" y="257" font-size="11" fill="#526575">tool calls</text>
+
+  <line x1="440" y1="400" x2="440" y2="446" stroke="#007f82" stroke-width="2.4" marker-end="url(#arrowTeal)"/>
+  <text x="452" y="428" font-size="11" font-weight="650" fill="#00696c">checked here, not in the prompt</text>
+
+  <line x1="205" y1="582" x2="205" y2="602" stroke="#152b3c" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="542" y1="582" x2="542" y2="602" stroke="#152b3c" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="897" y1="582" x2="897" y2="602" stroke="#152b3c" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <line x1="820" y1="335" x2="848" y2="335" stroke="#e0b567" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 956 400 L 956 430 L 1064 430 L 1064 500" fill="none" stroke="#e0b567" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="972" y="424" font-size="11" fill="#8a5a00">decisions re-enter enforcement</text>
+
+  <path d="M 40 700 L 22 700 L 22 183 L 56 183" fill="none" stroke="#8b9aa5" stroke-width="1.6" marker-end="url(#arrowGrey)"/>
+  <text x="30" y="446" font-size="11" fill="#526575" transform="rotate(-90 30 446)">worker re-enters the loop on the next deadline</text>
+</svg>

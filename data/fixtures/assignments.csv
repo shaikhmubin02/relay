@@ -1,0 +1,6 @@
+shift_id,volunteer_id,slot_no
+s_packing_am,v_iris,1
+s_frontdesk_am,v_fen,1
+s_distribution_pm,v_amara,1
+s_pallet_pm,v_fen,1
+s_cleanup_pm,v_eli,1

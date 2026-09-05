@@ -1,0 +1,39 @@
+{% macro state_pill(state, label) %}
+  {%- if state == 'confirmed' -%}
+    <span class="pill ok"><span class="glyph" aria-hidden="true">&#10003;</span>{{ label }}</span>
+  {%- elif state == 'needs_human' -%}
+    <span class="pill warn"><span class="glyph" aria-hidden="true">&#9679;</span>{{ label }}</span>
+  {%- elif state in ('awaiting_response', 'contacting') -%}
+    <span class="pill wait"><span class="glyph" aria-hidden="true">&#8230;</span>{{ label }}</span>
+  {%- elif state == 'unresolved' -%}
+    <span class="pill stop"><span class="glyph" aria-hidden="true">&#9587;</span>{{ label }}</span>
+  {%- else -%}
+    <span class="pill mute"><span class="glyph" aria-hidden="true">&#9675;</span>{{ label }}</span>
+  {%- endif -%}
+{% endmacro %}
+
+{% macro outreach_pill(status) %}
+  {%- if status == 'accepted' -%}
+    <span class="pill ok"><span class="glyph" aria-hidden="true">&#10003;</span>Accepted</span>
+  {%- elif status == 'pending' -%}
+    <span class="pill wait"><span class="glyph" aria-hidden="true">&#8230;</span>Request sent</span>
+  {%- elif status == 'declined' -%}
+    <span class="pill mute"><span class="glyph" aria-hidden="true">&#9675;</span>Declined</span>
+  {%- elif status == 'expired' -%}
+    <span class="pill mute"><span class="glyph" aria-hidden="true">&#8987;</span>No reply</span>
+  {%- else -%}
+    <span class="pill mute"><span class="glyph" aria-hidden="true">&#9587;</span>Withdrawn</span>
+  {%- endif -%}
+{% endmacro %}
+
+{% macro delivery_pill(status) %}
+  {%- if status == 'sent' -%}
+    <span class="pill ok"><span class="glyph" aria-hidden="true">&#10003;</span>Delivered to test inbox</span>
+  {%- elif status == 'pending' -%}
+    <span class="pill wait"><span class="glyph" aria-hidden="true">&#8230;</span>Queued</span>
+  {%- elif status == 'unknown' -%}
+    <span class="pill warn"><span class="glyph" aria-hidden="true">?</span>Delivery unknown</span>
+  {%- else -%}
+    <span class="pill stop"><span class="glyph" aria-hidden="true">&#9587;</span>Failed</span>
+  {%- endif -%}
+{% endmacro %}

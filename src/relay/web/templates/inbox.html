@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% import "_macros.html" as ui %}
+{% block title %}Test inbox — Relay{% endblock %}
+{% block content %}
+<h1>Test inbox</h1>
+<p class="sub">Every message Relay produced, exactly as a volunteer would receive it. With the fake
+  transport nothing leaves this machine; with SMTP configured, these are the messages that were sent.</p>
+
+{% if not messages %}
+<div class="card flat"><p class="empty">No messages yet.</p></div>
+{% endif %}
+
+{% for m in messages %}
+<div class="card">
+  <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px">
+    {{ ui.delivery_pill(m.status) }}
+    <strong>{{ m.subject }}</strong>
+    <span class="mono" style="color:var(--muted)">to {{ m.to_email }}</span>
+    <span class="mono" style="color:var(--muted);margin-left:auto">{{ m.created_at }}</span>
+  </div>
+  {% if m.error %}<div class="warnbox" style="margin-bottom:10px">{{ m.error }}</div>{% endif %}
+  <pre class="message">{{ m.body }}</pre>
+  <p style="color:var(--muted);font-size:13px;margin:8px 0 0">
+    kind <span class="mono">{{ m.kind }}</span> ·
+    idempotency-protected · attempts <span class="mono">{{ m.attempts }}</span>
+    {% if m.provider_message_id %}· id <span class="mono">{{ m.provider_message_id }}</span>{% endif %}
+  </p>
+</div>
+{% endfor %}
+{% endblock %}

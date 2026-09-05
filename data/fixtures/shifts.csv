@@ -1,0 +1,6 @@
+id,title,location,starts_at,ends_at,required_certification,headcount,notes
+s_packing_am,Morning food packing,Warehouse bay 2,+0 10:00,+0 13:00,food_safety_l1,1,Two hundred family boxes for Thursday distribution.
+s_frontdesk_am,Front desk welcome,Reception,+0 10:00,+0 13:00,,1,Greets families and checks the appointment list.
+s_distribution_pm,Afternoon distribution,Car park,+0 13:00,+0 16:00,food_safety_l1,1,Hand-out line. Busiest hours are the first ninety minutes.
+s_pallet_pm,Warehouse pallet reset,Warehouse bay 1,+0 14:00,+0 17:00,forklift,1,Requires the organisation's pallet jack sign-off. No exceptions.
+s_cleanup_pm,Evening cleanup,Warehouse bay 2,+0 17:00,+0 20:00,,1,Sweep down and reset tables for the morning.

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Thank you{% endblock %}
+{% block chrome %}{% endblock %}
+{% block content %}
+<div class="volunteer">
+  <div class="card">
+    {% if result.ok and result.action == 'accept' %}
+      <h1><span class="pill ok"><span class="glyph" aria-hidden="true">&#10003;</span>You are confirmed</span></h1>
+      <p class="big">Thank you, {{ result.volunteer_name }}. You are down for <strong>{{ result.shift_title }}</strong>,
+        {{ result.shift_when }}.</p>
+      <p>A confirmation email is on its way. If something changes, contact the coordinator as early as you can.</p>
+    {% elif result.ok %}
+      <h1>Thanks for letting us know</h1>
+      <p class="big">{{ result.message }}</p>
+    {% else %}
+      <h1>{% if result.error == 'already_filled' %}Already covered{% else %}Nothing to do here{% endif %}</h1>
+      <p class="big">{{ result.message }}</p>
+      {% if result.error in ('expired', 'request_expired') %}
+      <p style="color:var(--muted)">Requests time out so the coordinator is not left waiting. There is nothing
+        you need to do.</p>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

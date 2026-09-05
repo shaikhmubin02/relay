@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Link problem{% endblock %}
+{% block chrome %}{% endblock %}
+{% block content %}
+<div class="volunteer">
+  <div class="card">
+    <h1>{% if error == 'expired' %}This link has expired{% else %}This link is not valid{% endif %}</h1>
+    <p class="big">{{ message }}</p>
+    {% if error == 'expired' %}
+      <p>Coverage requests time out after a short window so the coordinator is not left waiting on a reply.
+         Relay will have moved on to someone else. Nothing is needed from you.</p>
+    {% else %}
+      <p>If you were expecting to confirm a shift, contact the coordinator directly rather than reusing this link.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

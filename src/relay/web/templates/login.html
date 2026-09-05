@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Sign in — Relay{% endblock %}
+{% block content %}
+<div class="volunteer">
+  <div class="card">
+    <h1>Relay</h1>
+    <p class="sub">Volunteer shift recovery for a small community organisation.</p>
+    {% if error %}<div class="warnbox" style="margin-bottom:14px">{{ error }}</div>{% endif %}
+    <form method="post" action="/login">
+      <p>
+        <label for="token" style="display:block;font-weight:600;margin-bottom:6px">Coordinator token</label>
+        <input type="password" id="token" name="token" style="width:100%" autocomplete="current-password" required>
+      </p>
+      <p><button type="submit">Sign in</button></p>
+    </form>
+    {% if hint %}
+    <p style="color:var(--muted);font-size:14px;margin-bottom:0">
+      This build is running on development defaults. The token is
+      <span class="mono">dev-coordinator-token</span> unless <span class="mono">RELAY_COORDINATOR_TOKEN</span>
+      is set.
+    </p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

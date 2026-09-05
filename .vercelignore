@@ -1,0 +1,8 @@
+.venv/
+var/
+tests/
+eval/results/
+docs/planning/
+**/__pycache__/
+*.pyc
+*.db

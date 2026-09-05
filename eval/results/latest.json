@@ -1,0 +1,654 @@
+{
+  "runs": [
+    {
+      "assigned": "v_amara",
+      "case_id": "ord-01",
+      "category": "ordinary",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 1.1110597000006237
+    },
+    {
+      "assigned": "v_bo",
+      "case_id": "ord-02",
+      "category": "ordinary",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.15922089999730815
+    },
+    {
+      "assigned": "v_amara",
+      "case_id": "ord-03",
+      "category": "ordinary",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.15816759999870555
+    },
+    {
+      "assigned": "v_cal",
+      "case_id": "ord-04",
+      "category": "ordinary",
+      "contacted": [
+        "v_cal"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 3,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.1682241000016802
+    },
+    {
+      "assigned": "v_amara",
+      "case_id": "ord-05",
+      "category": "ordinary",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.17523189999701572
+    },
+    {
+      "assigned": "v_bo",
+      "case_id": "ord-06",
+      "category": "ordinary",
+      "contacted": [
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 3,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.1791482000007818
+    },
+    {
+      "assigned": "v_lior",
+      "case_id": "ord-07",
+      "category": "ordinary",
+      "contacted": [
+        "v_bo",
+        "v_lior"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.17862890000105835
+    },
+    {
+      "assigned": "v_lior",
+      "case_id": "ord-08",
+      "category": "ordinary",
+      "contacted": [
+        "v_amara",
+        "v_bo",
+        "v_lior"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 5,
+      "model_calls": 10,
+      "passed": true,
+      "split": "holdout",
+      "state": "confirmed",
+      "tool_calls": 8,
+      "trace_complete": true,
+      "wall_seconds": 0.321311899999273
+    },
+    {
+      "assigned": "v_bo",
+      "case_id": "ord-09",
+      "category": "ordinary",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 5,
+      "passed": true,
+      "split": "holdout",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.17916740000146092
+    },
+    {
+      "assigned": "v_amara",
+      "case_id": "ord-10",
+      "category": "ordinary",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 5,
+      "passed": true,
+      "split": "holdout",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.22181049999926472
+    },
+    {
+      "assigned": null,
+      "case_id": "con-01",
+      "category": "constraint",
+      "contacted": [],
+      "failures": [],
+      "human_requests": 1,
+      "invariant_failures": [],
+      "messages": 1,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "needs_human",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.21506420000150683
+    },
+    {
+      "assigned": null,
+      "case_id": "con-02",
+      "category": "constraint",
+      "contacted": [],
+      "failures": [],
+      "human_requests": 1,
+      "invariant_failures": [],
+      "messages": 1,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "needs_human",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.21663469999839435
+    },
+    {
+      "assigned": null,
+      "case_id": "con-03",
+      "category": "constraint",
+      "contacted": [],
+      "failures": [],
+      "human_requests": 1,
+      "invariant_failures": [],
+      "messages": 1,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "needs_human",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.22272950000115088
+    },
+    {
+      "assigned": null,
+      "case_id": "con-04",
+      "category": "constraint",
+      "contacted": [],
+      "failures": [],
+      "human_requests": 1,
+      "invariant_failures": [],
+      "messages": 1,
+      "model_calls": 5,
+      "passed": true,
+      "split": "holdout",
+      "state": "needs_human",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.2105306000012206
+    },
+    {
+      "assigned": null,
+      "case_id": "con-05",
+      "category": "constraint",
+      "contacted": [],
+      "failures": [],
+      "human_requests": 1,
+      "invariant_failures": [],
+      "messages": 1,
+      "model_calls": 5,
+      "passed": true,
+      "split": "holdout",
+      "state": "needs_human",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.2230669000018679
+    },
+    {
+      "assigned": null,
+      "case_id": "sil-01",
+      "category": "silence",
+      "contacted": [
+        "v_amara",
+        "v_bo",
+        "v_lior"
+      ],
+      "failures": [],
+      "human_requests": 1,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 15,
+      "passed": true,
+      "split": "dev",
+      "state": "needs_human",
+      "tool_calls": 12,
+      "trace_complete": true,
+      "wall_seconds": 0.4689816999998584
+    },
+    {
+      "assigned": null,
+      "case_id": "sil-02",
+      "category": "silence",
+      "contacted": [
+        "v_amara",
+        "v_bo",
+        "v_lior"
+      ],
+      "failures": [],
+      "human_requests": 1,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 15,
+      "passed": true,
+      "split": "dev",
+      "state": "needs_human",
+      "tool_calls": 12,
+      "trace_complete": true,
+      "wall_seconds": 0.4852376999988337
+    },
+    {
+      "assigned": "v_lior",
+      "case_id": "sil-03",
+      "category": "silence",
+      "contacted": [
+        "v_amara",
+        "v_bo",
+        "v_lior"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 5,
+      "model_calls": 10,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 8,
+      "trace_complete": true,
+      "wall_seconds": 0.37486659999922267
+    },
+    {
+      "assigned": null,
+      "case_id": "sil-04",
+      "category": "silence",
+      "contacted": [
+        "v_amara"
+      ],
+      "failures": [],
+      "human_requests": 1,
+      "invariant_failures": [],
+      "messages": 2,
+      "model_calls": 10,
+      "passed": true,
+      "split": "holdout",
+      "state": "needs_human",
+      "tool_calls": 8,
+      "trace_complete": true,
+      "wall_seconds": 0.3599596999993082
+    },
+    {
+      "assigned": "v_bo",
+      "case_id": "sil-05",
+      "category": "silence",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 5,
+      "passed": true,
+      "split": "holdout",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.24965579999843612
+    },
+    {
+      "assigned": "v_amara",
+      "case_id": "dup-01",
+      "category": "duplicate",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.24085859999831882
+    },
+    {
+      "assigned": "v_amara",
+      "case_id": "dup-02",
+      "category": "duplicate",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 5,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.2726086000002397
+    },
+    {
+      "assigned": "v_amara",
+      "case_id": "dup-03",
+      "category": "duplicate",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 5,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.30288350000046194
+    },
+    {
+      "assigned": "v_amara",
+      "case_id": "dup-04",
+      "category": "duplicate",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 5,
+      "passed": true,
+      "split": "holdout",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.3640685999998823
+    },
+    {
+      "assigned": "v_bo",
+      "case_id": "dup-05",
+      "category": "duplicate",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 5,
+      "model_calls": 5,
+      "passed": true,
+      "split": "holdout",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.2930223000003025
+    },
+    {
+      "assigned": "v_amara",
+      "case_id": "adv-01",
+      "category": "adversarial",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.25746649999928195
+    },
+    {
+      "assigned": null,
+      "case_id": "adv-02",
+      "category": "adversarial",
+      "contacted": [
+        "v_amara",
+        "v_bo",
+        "v_lior"
+      ],
+      "failures": [],
+      "human_requests": 1,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 10,
+      "passed": true,
+      "split": "dev",
+      "state": "needs_human",
+      "tool_calls": 9,
+      "trace_complete": true,
+      "wall_seconds": 0.40728609999860055
+    },
+    {
+      "assigned": "v_amara",
+      "case_id": "adv-03",
+      "category": "adversarial",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 4,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.2603546999998798
+    },
+    {
+      "assigned": null,
+      "case_id": "adv-04",
+      "category": "adversarial",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 1,
+      "invariant_failures": [],
+      "messages": 3,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "needs_human",
+      "tool_calls": 5,
+      "trace_complete": true,
+      "wall_seconds": 0.22552690000156872
+    },
+    {
+      "assigned": null,
+      "case_id": "adv-05",
+      "category": "adversarial",
+      "contacted": [
+        "v_amara",
+        "v_bo",
+        "v_cal",
+        "v_lior"
+      ],
+      "failures": [],
+      "human_requests": 1,
+      "invariant_failures": [],
+      "messages": 5,
+      "model_calls": 10,
+      "passed": true,
+      "split": "holdout",
+      "state": "needs_human",
+      "tool_calls": 9,
+      "trace_complete": true,
+      "wall_seconds": 0.37690939999811235
+    }
+  ],
+  "summary": {
+    "by_category": {
+      "adversarial": {
+        "passed": 5,
+        "runs": 5
+      },
+      "constraint": {
+        "passed": 5,
+        "runs": 5
+      },
+      "duplicate": {
+        "passed": 5,
+        "runs": 5
+      },
+      "ordinary": {
+        "passed": 10,
+        "runs": 10
+      },
+      "silence": {
+        "passed": 5,
+        "runs": 5
+      }
+    },
+    "correct_escalation": {
+      "denominator": 6,
+      "numerator": 6,
+      "pct": 100.0
+    },
+    "interruption_burden_ordinary": {
+      "runs": 10,
+      "total_human_requests": 0
+    },
+    "messages_per_run": {
+      "max": 5,
+      "median": 4.0
+    },
+    "model_calls_per_run": {
+      "max": 15,
+      "median": 5.0
+    },
+    "policy_violation_detail": [],
+    "policy_violations": 0,
+    "resolvable_completion": {
+      "denominator": 19,
+      "numerator": 19,
+      "pct": 100.0
+    },
+    "runs": 30,
+    "runs_passed": 30,
+    "scenarios": 30,
+    "scenarios_passed": 30,
+    "trace_completeness": {
+      "denominator": 30,
+      "numerator": 30,
+      "pct": 100.0
+    },
+    "wall_seconds_per_run": {
+      "max": 1.111,
+      "median": 0.245
+    }
+  }
+}

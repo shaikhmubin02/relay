@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ shift.title }}{% endblock %}
+{% block chrome %}{% endblock %}
+{% block content %}
+<div class="volunteer">
+  <div class="card">
+    <h1>{% if action == 'accept' %}Cover this shift?{% else %}Decline this request?{% endif %}</h1>
+    <p class="big">Hi {{ volunteer.name }},</p>
+    <dl class="kv" style="margin:18px 0">
+      <dt>Shift</dt><dd><strong>{{ shift.title }}</strong></dd>
+      <dt>When</dt><dd class="mono">{{ shift.starts_at }} – {{ shift.ends_at[11:16] }}</dd>
+      <dt>Where</dt><dd>{{ shift.location }}</dd>
+    </dl>
+
+    {% if outreach and outreach.status != 'pending' %}
+      <div class="warnbox" style="margin-bottom:16px">
+        This request is no longer open. Selecting the button below will tell you exactly where things stand.
+      </div>
+    {% endif %}
+
+    <p style="color:var(--muted);font-size:14px">
+      This link is just for you and stops working at <span class="mono">{{ expires_at }}</span>.
+      Nothing changes until you choose below.
+    </p>
+    <form method="post" action="/r/{{ token }}">
+      <button type="submit">
+        {% if action == 'accept' %}Yes, I can cover it{% else %}No, not this time{% endif %}
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
