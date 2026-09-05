@@ -1,6 +1,6 @@
 # Agents for Humans: Building Relay Around a Coordinator's Real Decisions
 
-*Draft for builder.aws. Publish under your own account with the title above — "Agents for Humans" must appear in the title.*
+*Draft for builder.aws. Publish under your own account with the title above. "Agents for Humans" has to be in the title.*
 
 ---
 
@@ -26,7 +26,7 @@ I should say this early, because it changes how you should read everything else:
 
 The pantry in the demo is invented, the twelve volunteers are invented, and the word *synthetic* is in the organisation's name so it can't be quoted as a partner. Every number I publish came from synthetic scenarios.
 
-That is a genuine weakness and I would rather name it than have someone find it. What I could do without a partner was make the *shape* of the problem defensible — and be strict about not dressing a plausible workflow up as a validated one.
+That is a genuine weakness and I would rather name it than have someone find it. What I could do without a partner was make the *shape* of the problem defensible, and be strict about not dressing a plausible workflow up as a validated one.
 
 ## The three screens
 
@@ -40,7 +40,7 @@ That is a genuine weakness and I would rather name it than have someone find it.
 
 That table does something a confidence score can't. It lets the coordinator disagree with a *specific* fact. "Actually Cal finished that course on Tuesday" is an actionable correction to a source record. "The agent was 72% confident" is not actionable at all.
 
-**Action receipt.** Event id, every candidate considered, every contact attempt, consent, tool results, the roster change with its assignment id, timestamps. Observed behaviour — not the model's private reasoning. I deliberately do not show a "chain of thought" panel. What the coordinator needs to audit is what Relay *did*.
+**Action receipt.** Event id, every candidate considered, every contact attempt, consent, tool results, the roster change with its assignment id, timestamps. Observed behaviour, not the model's private reasoning. I deliberately do not show a "chain of thought" panel. What the coordinator needs to audit is what Relay *did*.
 
 ## The distinction that shaped the whole state machine
 
@@ -58,7 +58,7 @@ So `contacting` and `awaiting_response` are separate states from `confirmed`, an
 
 I gave the coordinator four possible decisions on a gap Relay cannot close: retry outreach, assign someone myself, leave it uncovered, or *the source record is wrong and I'll fix it*.
 
-That last one matters. It is the option that admits the problem is upstream. Without it the only way to resolve a bad certification record is to make the agent ignore certification — which is exactly the thing that must never become a one-click action.
+That last one matters. It is the option that admits the problem is upstream. Without it, the only way to resolve a bad certification record is to make the agent ignore certification. That is exactly the thing that must never become a one-click action.
 
 And "assign someone myself" is not a bypass. Relay still refuses a volunteer who lacks an organisation-verified requirement, even with coordinator authority behind the request:
 
@@ -68,7 +68,7 @@ The coordinator has authority over Relay. Neither of them has authority over wha
 
 ## What I'd do differently
 
-Ranking candidates is where I still can't tell you the model earns its place. Relay uses it to order eligible volunteers using roster notes a rules engine can't parse — *"has trained two others on this line"* — and to write the sentence a volunteer reads. I believe both matter. I haven't measured either, and a rules-only baseline ships in the same repository, so that comparison is the obvious next experiment rather than a claim I get to make now.
+Ranking candidates is where I still can't tell you the model earns its place. Relay uses it to order eligible volunteers using roster notes a rules engine can't parse ("has trained two others on this line"), and to write the sentence a volunteer reads. I believe both matter. I haven't measured either, and a rules-only baseline ships in the same repository, so that comparison is the obvious next experiment rather than a claim I get to make now.
 
 ---
 

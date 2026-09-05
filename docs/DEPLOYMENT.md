@@ -4,7 +4,7 @@ Relay is a normal ASGI app. It runs anywhere that can run Python; the hosted dem
 
 ## The hosted demo
 
-**<https://relay-volunteer-agent.vercel.app>** — coordinator token in the README.
+**<https://relay-volunteer-agent.vercel.app>** (coordinator token is in the README).
 
 Vercel's Python runtime loads the top-level `app` from [`app.py`](../app.py) and routes every request to it. That file is the only deployment-specific code in the repository, and it exists because a serverless host changes three things about the environment:
 
@@ -14,7 +14,7 @@ Vercel's Python runtime loads the top-level `app` from [`app.py`](../app.py) and
 | No persistent disk between cold starts | `RELAY_AUTOSEED=1` re-seeds the demo organisation | banner |
 | Process frozen between requests, so a worker thread never fires a deadline | `RELAY_WORKER_ENABLED=0`; `scheduler.tick()` runs on the way into the dashboard and each gap | banner |
 
-Every page of the hosted instance carries a banner saying so. **State is per-instance and resets when the instance recycles** — that is a property of the host, not of Relay, and a local run has a persistent database and a real background worker.
+Every page of the hosted instance carries a banner saying so. **State is per-instance and resets when the instance recycles**, that is a property of the host, not of Relay, and a local run has a persistent database and a real background worker.
 
 `scheduler.tick()` is the only path that advances a workflow in both cases. The hosted demo calls it from a different place, not in a different way.
 
@@ -60,14 +60,14 @@ automatically.
 
 ## A host with a disk, if you want the real thing
 
-Nothing about Relay needs serverless. On any host with a persistent volume — Fly.io, Render, a VM, AgentCore Runtime — drop all four serverless variables and run:
+Nothing about Relay needs serverless. On any host with a persistent volume, Fly.io, Render, a VM, AgentCore Runtime, drop all four serverless variables and run:
 
 ```bash
 pip install -e .
 RELAY_DB=/data/relay.db python -m relay serve --host 0.0.0.0 --port 8000
 ```
 
-You then get the background worker on a thread, a database that survives restarts, and the restart-resumption behaviour that `test_state_survives_a_restart_without_resending` covers. To send real email, set `RELAY_EMAIL_TRANSPORT=smtp`, the SMTP variables, and **widen `RELAY_EMAIL_ALLOWLIST_DOMAINS` deliberately** — it is the last thing standing between a misconfiguration and a real volunteer's inbox.
+You then get the background worker on a thread, a database that survives restarts, and the restart-resumption behaviour that `test_state_survives_a_restart_without_resending` covers. To send real email, set `RELAY_EMAIL_TRANSPORT=smtp`, the SMTP variables, and **widen `RELAY_EMAIL_ALLOWLIST_DOMAINS` deliberately**, it is the last thing standing between a misconfiguration and a real volunteer's inbox.
 
 ## Before pointing this at anyone real
 

@@ -4,7 +4,7 @@ When a volunteer cancels a shift, Relay finds the cover. It only interrupts the 
 
 Built with the [Strands Agents SDK](https://strandsagents.com) for the Agents for Humans hackathon, Good Neighbour Agents track.
 
-**Live demo:** https://relay-volunteer-agent.vercel.app — token `judge-70250020`, then press *Load demo data*.
+**Live demo:** https://relay-volunteer-agent.vercel.app with token `judge-70250020`, then press *Load demo data*.
 It's on serverless functions, so the database is per-instance and resets when the instance recycles. Run it locally for the real thing.
 
 ## The problem

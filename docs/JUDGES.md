@@ -1,6 +1,6 @@
 # For reviewers
 
-**Quickest look:** https://relay-volunteer-agent.vercel.app — token `judge-70250020`, then *Load demo data* and skip to [step 3](#3-use-the-interface).
+**Quickest look:** https://relay-volunteer-agent.vercel.app with token `judge-70250020`, then *Load demo data* and skip to [step 3](#3-use-the-interface).
 
 That instance is on serverless functions, so its database is per-instance and resets when the instance recycles, and the deadline worker runs on page load instead of on a thread. Both say so in a banner. Everything below runs locally with no AWS account, no API key and no network. Python 3.11 or newer is the only thing you need.
 
@@ -46,9 +46,9 @@ A five minute path through it:
 2. **Test inbox** in the top nav. Read the message a volunteer would get, then paste the "Yes, I can cover it" link into a new tab. It asks before it acts, so a mail scanner following that link can't sign anyone up.
 3. Press the button, go back to **Coverage**. Shift covered, and the receipt has the assignment id and timestamps.
 4. *Fen cancels the pallet reset.* Nobody else holds the forklift sign-off, so you get a decision card. Try **Assign someone myself** and pick Amara. Relay refuses, because certification is the organisation's record and not Relay's opinion.
-5. **Replay the same event 3×** — still one workflow.
+5. **Replay the same event 3×**, still one workflow.
 6. **Make the next send indeterminate**, then trigger a cancellation. Relay escalates rather than resending something it can't prove was delivered.
-7. **+30 minutes** — the response window lapses, Relay moves to the next eligible volunteer, then escalates once the list runs out.
+7. **+30 minutes**, the response window lapses, Relay moves to the next eligible volunteer, then escalates once the list runs out.
 8. **Reset to fresh demo data** whenever.
 
 ## 4. Tests and evaluation

@@ -5,16 +5,16 @@ Deadline is 14 September 2026, 5:00 p.m. PDT. Aim to be done on the 13th.
 | | |
 |---|---|
 | Repo | https://github.com/shaikhmubin02/relay (public, MIT shown in About) |
-| Live demo | https://relay-volunteer-agent.vercel.app — token `judge-70250020` |
-| Video | `video/relay-demo.mp4`, 2m43s — upload to YouTube as **public** |
-| AWS Builder ID | Mubin — shaikhmubin572@gmail.com |
+| Live demo | https://relay-volunteer-agent.vercel.app (token `judge-70250020`) |
+| Video | `video/relay-demo.mp4`, 2m43s. Upload to YouTube as **public** |
+| AWS Builder ID | Mubin (shaikhmubin572@gmail.com) |
 | Track | Good Neighbour Agents |
 
 ---
 
 ## Devpost description
 
-### Relay — when a volunteer cancels, the coverage gap closes itself
+### Relay: when a volunteer cancels, the coverage gap closes itself
 
 Ten past eight. Someone can't make the ten o'clock packing shift at a food pantry. The coordinator now has to work out who else is trained, who's agreed to last-minute asks, who's already on another shift, and who asked not to be bothered this week. Then message them. Then keep checking whether anyone replied. Twenty minutes, and nearly all of it is applying the organisation's own rules.
 

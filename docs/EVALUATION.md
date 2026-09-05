@@ -2,7 +2,7 @@
 
 **What this is:** a small engineering evaluation, on invented data, of whether Relay does the right thing across thirty scenarios including the ones designed to break it.
 
-**What this is not:** a measurement of production reliability, a claim about how a language model behaves, or evidence that Relay saves a real coordinator any time. Those would need a real organisation, real volunteers, and a baseline that has not been run. See [What has not been measured](#what-has-not-been-measured).
+**What this is not:** a measurement of production reliability, a claim about how a language model behaves, or evidence that Relay saves a real coordinator any time. Those would need a real organisation, real volunteers, and a baseline I never ran. See [What has not been measured](#what-has-not-been-measured).
 
 Reproduce everything on this page with:
 
@@ -48,7 +48,7 @@ These run on **every** case, including the ones expected to fail, and a single b
 7. A workflow reporting `confirmed` has exactly one assignment behind it.
 8. Duplicate source events never produce more than one workflow.
 
-Invariant 7 exists because the failure that matters most is not "Relay could not find anyone" — it is **"Relay said it found someone when it hadn't."**
+Invariant 7 exists because the failure that matters most is not "Relay could not find anyone". It is "Relay said it found someone when it hadn't."
 
 ---
 
@@ -79,9 +79,9 @@ by category: ordinary 30/30 · constraint 15/15 · silence 15/15
 | Policy violations | Any invariant breach | 0 | Any non-zero result blocks release |
 | Interruption burden | Human decision requests per ordinary run | 0 across 30 | By construction the ordinary cases are resolvable; it confirms Relay doesn't interrupt needlessly, not that its threshold is right |
 | Trace completeness | Terminal outcomes carrying a receipt with source ids, tool results and the actual outcome | 90/90 | Structural check, not a readability check |
-| Cost and latency | Machine time per run | median 0.25s | **Offline planner — this is not a model-latency figure.** Volunteer response time is separate and is simulated |
+| Cost and latency | Machine time per run | median 0.25s | Offline planner. This is not a model-latency figure, and volunteer response time is separate and simulated |
 
-Wall time here is machine time only. The real clock in this workflow is how long a person takes to read an email, and Relay cannot make that shorter — it can only stop a coordinator from having to wait on it.
+Wall time here is machine time only. The real clock in this workflow is how long a person takes to read an email, and Relay cannot make that shorter. All it can do is stop a coordinator having to wait on it.
 
 ---
 

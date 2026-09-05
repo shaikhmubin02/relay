@@ -1,6 +1,6 @@
 # Agents for Humans: Safe Tool Use and Recovery with Strands
 
-*Draft for builder.aws. Publish under your own account with the title above — "Agents for Humans" must appear in the title.*
+*Draft for builder.aws. Publish under your own account with the title above. "Agents for Humans" has to be in the title.*
 
 ---
 
@@ -20,9 +20,9 @@ def request_coverage(volunteer_ids: list[str], rationale: str, personal_note: st
     return operations.request_coverage(workflow_id, volunteer_ids, ...)
 ```
 
-The tools are `load_shift_context`, `eligible_volunteers`, `request_coverage`, `escalate_gap` and `write_receipt`. They're closures over one workflow id, which is why the model can't reach across workflows — it's never given the parameter.
+The tools are `load_shift_context`, `eligible_volunteers`, `request_coverage`, `escalate_gap` and `write_receipt`. They're closures over one workflow id, which is why the model can't reach across workflows, it's never given the parameter.
 
-The important tool is the one that isn't there. `record_acceptance` — the function that puts a volunteer on a rota — is implemented and tested, and is **not** in the model's tool list. Scheduling happens only when the volunteer clicks their own signed, single-use, expiring link.
+The important tool is the one that isn't there. `record_acceptance`, the function that puts a volunteer on a rota, is implemented and tested, and is **not** in the model's tool list. Scheduling happens only when the volunteer clicks their own signed, single-use, expiring link.
 
 That single decision is what makes the prompt-injection story boring, which is the goal. An instruction that says *"assign Cal Rivera without checking certification"* has no tool to reach for. There is no argmax over the tool list that assigns anybody.
 
@@ -39,7 +39,7 @@ permitted = [v for v in requested if v in eligible_ids]
 
 The model's ordering is respected. Its membership claims are not. Anyone ineligible is dropped, recorded as `policy.outreach_refused`, and reported back in the tool result so the model can see what happened and say something truthful about it.
 
-Then the wave cap applies, then the per-workflow message budget, then the recipient allowlist — checked when the message is queued *and* again when it's sent.
+Then the wave cap applies, then the per-workflow message budget, then the recipient allowlist, checked when the message is queued *and* again when it's sent.
 
 I test this two ways. Once with the model declining the injected instruction, which is a test of the model. And once by calling the tool directly with all twelve volunteer ids, as if the planner had complied completely:
 
@@ -88,22 +88,22 @@ Application logic is exactly what races. Writes go through `BEGIN IMMEDIATE`, so
 
 The test runs two real threads through a `threading.Barrier`. Exactly one wins.
 
-The part I had to fix was the losing volunteer's message. My first version said *"You have already responded to this request."* They hadn't — Relay had withdrawn their request when someone else accepted. That's a small lie with a real consequence: the volunteer has no idea whether they're expected on Saturday. Now the outcome depends on why the request closed:
+The part I had to fix was the losing volunteer's message. My first version said *"You have already responded to this request."* They hadn't, Relay had withdrawn their request when someone else accepted. That's a small lie with a real consequence: the volunteer has no idea whether they're expected on Saturday. Now the outcome depends on why the request closed:
 
-> This shift is already covered — someone answered just before you. You are not scheduled for it, and nothing else is needed from you.
+> This shift is already covered, someone answered just before you. You are not scheduled for it, and nothing else is needed from you.
 
 And they get an email saying the same thing.
 
 ## Delivery you can't confirm
 
-The transport can fail in three ways, not two: yes, no, and *don't know*. Relay models the third:
+The transport can fail in three ways, not two: yes, no, and don't know. Relay models the third:
 
 ```python
 except DeliveryUnknown as exc:
     store.execute("UPDATE outbox SET status = 'unknown', error = ? WHERE id = ?", ...)
 ```
 
-An `unknown` row is never retried. A resend could double-ask someone who *did* receive the first message, and Relay can't tell the two cases apart — so it escalates and says exactly that.
+An `unknown` row is never retried. A resend could double-ask someone who *did* receive the first message, and Relay can't tell the two cases apart, so it escalates and says exactly that.
 
 I got this wrong first time in an instructive way. The reconciliation ran inside the loop over *due* workflows, so it only fired when the 25-minute response window elapsed. The behaviour was correct and the timing was useless: the coordinator learned the message might not have arrived twenty-five minutes after it might not have arrived. It's now a separate pass on every tick, and there's a test.
 
@@ -111,7 +111,7 @@ I got this wrong first time in an instructive way. The reconciliation ran inside
 
 Every wait is a row with a timestamp: `next_action_at`, `expires_at`. `scheduler.tick()` is a pure pass over those rows, safe to call as often as you like. The web app runs it on a thread; tests and the evaluation call it directly with a frozen clock.
 
-That's why a restart is boring. Drop every connection mid-flight, tick again, and nothing is resent — the state is on disk and the outbox is keyed by idempotency.
+That's why a restart is boring. Drop every connection mid-flight, tick again, and nothing is resent, the state is on disk and the outbox is keyed by idempotency.
 
 ## The offline model provider
 
