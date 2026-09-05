@@ -133,3 +133,29 @@ def test_healthz_reports_how_the_build_is_configured(client):
     assert payload["ok"] is True
     assert payload["email_transport"] == "fake"
     assert "demo_clock" in payload
+
+
+def test_a_refused_decision_is_shown_on_the_page(signed_in):
+    """A refusal that only lives in the URL looks to a coordinator like nothing happened."""
+    created = signed_in.post(
+        "/demo/scenario", data={"scenario": "no_candidate"}, follow_redirects=False
+    )
+    workflow_id = created.headers["location"].rsplit("/", 1)[-1]
+    escalation = store.query_one("SELECT id FROM escalations WHERE workflow_id = ?", (workflow_id,))
+
+    # Amara holds food_safety_l1, not the forklift sign-off this shift requires.
+    page = signed_in.post(
+        f"/workflows/{workflow_id}/decide",
+        data={
+            "escalation_id": escalation["id"],
+            "decision": "assign_specific_volunteer",
+            "volunteer_id": "v_amara",
+        },
+    )
+    assert page.status_code == 200
+    assert "Relay did not apply that decision" in page.text
+    # Jinja escapes the quotes around the certification name, so match around them.
+    assert "does not hold the organisation-verified" in page.text
+    assert "forklift" in page.text
+    assert "Update the volunteer record in the source system first" in page.text
+    assert confirmed_for("s_pallet_pm") == []

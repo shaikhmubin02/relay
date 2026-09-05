@@ -13,6 +13,12 @@
   · slot {{ workflow.slot_no }}
 </p>
 
+{% if refusal %}
+<div class="warnbox" style="margin-bottom:18px">
+  <strong>Relay did not apply that decision.</strong><br>{{ refusal }}
+</div>
+{% endif %}
+
 {# ---------------- decision card ---------------- #}
 {% if escalation and escalation.status == 'open' %}
 <div class="decision">
@@ -123,6 +129,9 @@
 {# ---------------- exclusions ---------------- #}
 <div class="card">
   <h2 style="margin-top:0">Who Relay ruled out, and why</h2>
+  {% if candidates.evaluated_at %}<p style="color:var(--muted);font-size:13.5px;margin-top:-4px">
+    The roster as Relay read it at <span class="mono">{{ candidates.evaluated_at[11:19] }}</span>,
+    when it decided who to ask.</p>{% endif %}
   <table>
     <thead><tr><th>Volunteer</th><th>Reason</th><th>Codes</th></tr></thead>
     <tbody>

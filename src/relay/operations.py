@@ -996,10 +996,15 @@ def build_receipt(workflow_id: str) -> dict[str, Any]:
         "FROM escalations WHERE workflow_id = ? ORDER BY created_at",
         (workflow_id,),
     )
-    exclusions = [
-        {"volunteer_id": e.volunteer_id, "name": e.name, "codes": e.codes, "explanation": e.explanation}
-        for e in candidate_set_for(workflow).excluded
-    ]
+    snapshot = decision_snapshot(workflow_id)
+    exclusions = (
+        snapshot["excluded"]
+        if snapshot
+        else [
+            {"volunteer_id": e.volunteer_id, "name": e.name, "codes": e.codes, "explanation": e.explanation}
+            for e in candidate_set_for(workflow).excluded
+        ]
+    )
 
     return {
         "workflow_id": workflow_id,
@@ -1339,3 +1344,49 @@ def _assign_directly(workflow: sqlite3.Row, volunteer_id: str, actor: str) -> di
         detail={"volunteer_id": volunteer_id, "slot_no": int(workflow["slot_no"])},
     )
     return {"ok": True}
+
+
+def decision_snapshot(workflow_id: str) -> dict[str, Any] | None:
+    """The eligibility decision as Relay actually saw it, from the audit trail.
+
+    Re-evaluating the roster when a coordinator opens the page gives a different
+    answer than the one Relay acted on: everyone it contacted comes back as
+    "already contacted", which is circular for the person asking why they were
+    contacted. This reconstructs the set the decision was made against.
+    """
+    row = store.query_one(
+        "SELECT at, detail FROM audit_log WHERE workflow_id = ? AND action = 'tool.eligible_volunteers' "
+        "ORDER BY id DESC LIMIT 1",
+        (workflow_id,),
+    )
+    if row is None:
+        return None
+    detail = store.loads(row["detail"]) or {}
+    excluded_codes: dict[str, list[str]] = detail.get("excluded") or {}
+    eligible_ids: list[str] = detail.get("eligible") or []
+    if not excluded_codes and not eligible_ids:
+        return None
+
+    names = {
+        volunteer["id"]: volunteer["name"]
+        for volunteer in store.query("SELECT id, name FROM volunteers")
+    }
+
+    excluded = []
+    for volunteer_id, codes in excluded_codes.items():
+        name = names.get(volunteer_id, volunteer_id)
+        known = [code for code in codes if code in policy_mod.EXCLUSION_TEXT]
+        explanation = f"{name} " + "; ".join(policy_mod.EXCLUSION_TEXT[code] for code in known) + "."
+        excluded.append(
+            {"volunteer_id": volunteer_id, "name": name, "codes": list(codes), "explanation": explanation}
+        )
+    excluded.sort(key=lambda item: item["name"])
+
+    return {
+        "evaluated_at": row["at"],
+        "policy_version": detail.get("policy_version"),
+        "eligible": [
+            {"volunteer_id": vid, "name": names.get(vid, vid)} for vid in sorted(eligible_ids, key=lambda v: names.get(v, v))
+        ],
+        "excluded": excluded,
+    }

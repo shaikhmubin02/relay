@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hmac
 import json
+from urllib.parse import quote
 from contextlib import asynccontextmanager
 from hashlib import sha256
 from pathlib import Path
@@ -300,7 +301,8 @@ def workflow_detail(request: Request, workflow_id: str) -> Response:
     receipt_row = store.query_one("SELECT * FROM receipts WHERE workflow_id = ?", (workflow_id,))
     receipt = store.loads(receipt_row["document"]) if receipt_row else operations.build_receipt(workflow_id)
 
-    candidates = operations.candidate_set_for(row).public()
+    # Prefer the set Relay actually decided against; fall back to a live read.
+    candidates = operations.decision_snapshot(workflow_id) or operations.candidate_set_for(row).public()
     assignable = store.rows_to_dicts(
         store.query("SELECT id, name, certifications FROM volunteers WHERE active = 1 ORDER BY name")
     )
@@ -319,6 +321,7 @@ def workflow_detail(request: Request, workflow_id: str) -> Response:
             "candidates": candidates,
             "assignable": assignable,
             "option_labels": OPTION_LABELS,
+            "refusal": request.query_params.get("refused") or "",
         }
     )
     return templates.TemplateResponse(request, "workflow.html", context)
@@ -348,9 +351,10 @@ def decide(
         volunteer_id=volunteer_id or None,
     )
     if not result.get("ok"):
-        request.session_error = result  # type: ignore[attr-defined]
+        # A refused decision has to be visible on the page. Losing it in a query string
+        # the template never reads would look to a coordinator like nothing happened.
         return RedirectResponse(
-            f"/workflows/{workflow_id}?error={result.get('error')}&message={result.get('message', '')}",
+            f"/workflows/{workflow_id}?refused={quote(result.get('message', 'That decision was refused.'))}",
             status_code=303,
         )
     scheduler.tick()
