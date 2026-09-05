@@ -19,7 +19,10 @@ No third-party CSS framework, icon set, font, or template was used. The styleshe
 
 ## AI assistance
 
-This project was built with AI coding assistance (Claude). All of it was reviewed, run, and tested; the tests, the evaluation and the fixtures were designed as part of the work rather than generated as an afterthought.
+I built this with AI coding assistance (Claude), which seems worth saying out loud in a hackathon about
+building agents. Everything in here was reviewed, run and tested. The tests and the evaluation weren't
+bolted on at the end either — several of the fixes in the git history exist because a test caught
+something I'd otherwise have shipped.
 
 ## Data
 

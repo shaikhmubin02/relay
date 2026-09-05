@@ -15,3 +15,8 @@ build/
 
 .vercel
 .env*
+
+# demo recording rig outputs
+video/
+audio/
+tools/node_modules/

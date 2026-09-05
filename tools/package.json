@@ -1,0 +1,15 @@
+{
+  "name": "relay-demo-recorder",
+  "private": true,
+  "type": "module",
+  "description": "Drives the local Relay app and records the demo segments. Not part of Relay.",
+  "scripts": {
+    "record": "node record.mjs",
+    "assemble": "node assemble.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.63.0",
+    "ffmpeg-static": "^5.2.0",
+    "ffprobe-static": "^3.1.0"
+  }
+}

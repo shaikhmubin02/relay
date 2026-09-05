@@ -1,58 +1,69 @@
-# Submission pack
+# Submission
 
-Everything here is ready to paste, plus the things only you can do. Deadline: **14 September 2026, 5:00 p.m. PDT**. Treat 13 September as the internal deadline.
+Deadline is 14 September 2026, 5:00 p.m. PDT. Aim to be done on the 13th.
+
+| | |
+|---|---|
+| Repo | https://github.com/shaikhmubin02/relay (public, MIT shown in About) |
+| Live demo | https://relay-volunteer-agent.vercel.app — token `judge-70250020` |
+| Video | `video/relay-demo.mp4`, 2m43s — upload to YouTube as **public** |
+| AWS Builder ID | Mubin — shaikhmubin572@gmail.com |
+| Track | Good Neighbour Agents |
 
 ---
 
-## Devpost description (paste as-is)
+## Devpost description
 
 ### Relay — when a volunteer cancels, the coverage gap closes itself
 
-**Who it's for:** the volunteer coordinator at a small community organisation — a food pantry, a library, a school.
+Ten past eight. Someone can't make the ten o'clock packing shift at a food pantry. The coordinator now has to work out who else is trained, who's agreed to last-minute asks, who's already on another shift, and who asked not to be bothered this week. Then message them. Then keep checking whether anyone replied. Twenty minutes, and nearly all of it is applying the organisation's own rules.
 
-**The problem.** A cancellation arrives at 08:10 for a 10:00 shift. What follows is twenty minutes of unpaid detective work: who else is trained, who has opted in to last-minute asks, who is already on another shift, who asked not to be contacted this week. Then messages go out, and the coordinator keeps checking whether anyone actually said yes. Almost all of it is rule-following. A small part genuinely needs a person — *the only volunteer with the forklift sign-off is the one who cancelled.*
+The bit that isn't: sometimes the only person with the forklift sign-off is the one who cancelled. That's a real decision and it belongs to a human.
 
-**What Relay does.** It takes the cancellation through to confirmed coverage: checks the roster against the organisation's own rules, asks a bounded set of eligible opted-in volunteers, handles silence, declines and two people accepting at once, updates the rota only when someone actually accepts, and hands the coordinator one clear decision when it can't finish — with a receipt that can be checked line by line.
+**Who it's for.** The one person who holds a small charity's rota together. A food pantry, a library, a school.
 
-**The design rule.** The model interprets and drafts; code decides what is permitted and performs every side effect. One Strands agent with five narrow tools reads the free-text cancellation note, ranks candidates using roster notes a rules engine can't parse, writes the sentence a volunteer actually reads, and judges when to escalate. It cannot contact anyone ineligible — the list it passes is a preference order, not an authorisation — and it has **no tool that assigns a volunteer at all.** Scheduling happens only when the volunteer clicks their own signed, single-use, expiring link, with eligibility re-checked at that exact moment.
+**What Relay does.** It takes a cancellation through to confirmed cover. Checks the roster against the organisation's rules, asks a bounded set of eligible volunteers who've opted in, handles silence and declines and two people saying yes at once, updates the rota only when somebody actually accepts, and hands over one clear decision when it can't finish. Everything it did is on a receipt you can check line by line.
 
-**Failure handling is the product.** Duplicate webhooks dedupe before any outreach. Two simultaneous acceptances resolve to exactly one assignment, and the volunteer who loses is told the truth rather than "you already responded". An indeterminate send is escalated, never blindly resent. Deadlines are rows in a database, not sleeping coroutines, so a restart resumes and resends nothing. Two invariants are enforced by SQLite indexes rather than by application logic, because application logic is exactly what races.
+**How it works.** The model interprets and drafts; code decides what's allowed and performs every side effect. One Strands agent with five narrow tools reads the free-text cancellation note, orders candidates using roster notes a rules engine can't parse, writes the sentence a volunteer actually reads, and judges when to escalate. The candidate list it passes is a preference order, not permission: anyone ineligible gets dropped and logged. And it has no tool that assigns anybody. A volunteer is scheduled only by clicking their own signed, single-use, expiring link, with eligibility rechecked at that moment.
 
-**Evidence.** 68 tests and 30 synthetic evaluation scenarios — 10 of them held out and executed for the first time once the workflow was stable — across 90 runs: all passing, zero policy violations. Injection is tested twice: with the model declining, and with the tool called directly with all twelve volunteer ids as if the planner had fully complied.
+**Why the failure handling is the product.** Duplicate webhooks dedupe before any outreach. Two simultaneous acceptances resolve to exactly one assignment, and the person who loses is told the truth instead of "you already responded". A send the mail server can't confirm gets escalated, never blindly resent. Deadlines are rows in a database rather than sleeping coroutines, so a restart resumes and resends nothing. Two invariants sit in SQLite indexes rather than in application code, because application code is what races.
 
-**Stated plainly:** no real organisation has used this, no time saving is claimed because none was measured, and the published numbers came from a deterministic offline planner that ships alongside the Bedrock path so reviewers can run everything with no AWS account. Limitations are in the README and in `docs/DISCLOSURES.md`.
+**Evidence.** 69 tests. 30 synthetic evaluation scenarios, 10 of them held back until the workflow was stable, run three times each: 90/90 passing, zero policy violations. Prompt injection is tested twice, once with the model declining and once by calling the tool directly with all twelve volunteer ids as though the planner had fully complied.
 
-**Try it:** live demo at <https://relay-volunteer-agent.vercel.app> (sign in with `judge-70250020`, press *Load demo data*). Or locally, with no account and nothing sent: `pip install -e . && python -m relay demo`.
+**What I'm not claiming.** No real organisation has used this. I'm not quoting a time saving because I didn't measure one. The published numbers came from a deterministic offline planner that ships alongside the Bedrock path so anyone can run the whole thing with no AWS account. Limitations are in the README and in `docs/DISCLOSURES.md`.
 
-**Repo:** <https://github.com/shaikhmubin02/relay> (MIT)
+**Try it.** Live demo above, or `pip install -e . && python -m relay demo` locally. No account, nothing sent.
 
 **Built with:** Strands Agents SDK 1.54, Amazon Bedrock (Claude), Python, FastAPI, SQLite.
 
 ---
 
-## Before you submit — the things only you can do
+## Left to do
 
-- [ ] **Verify the Bedrock path.** `python -m relay check-model --list`, then `RELAY_MODEL_PROVIDER=bedrock python -m relay check-model --live`. If it works, say so in the description and re-run `python eval/run_eval.py --provider bedrock --repeats 1`. **If it does not, leave the honesty note in the README exactly as written.**
-- [ ] Register, confirm eligibility, record your AWS Builder ID.
-- [ ] Request the $50 AWS credits (deadline 11 Sep, noon PT). Do not make delivery depend on approval.
-- [x] Public repository, MIT licence detected by GitHub and visible in About — <https://github.com/shaikhmubin02/relay>
-- [ ] Record the video (script: `docs/DEMO_SCRIPT.md`), upload to YouTube or Vimeo, set to **public**, confirm under 5:00.
-- [x] Live demo deployed with real secrets — <https://relay-volunteer-agent.vercel.app>, coordinator token `judge-70250020` (publish this in the submission notes so judges can sign in).
-- [ ] Publish up to three builder.aws posts with **"Agents for Humans"** in the title (drafts in `docs/builder-posts/`). 0.2 points each, 0.6 maximum.
-- [ ] Check the submission logged out: repo loads, video plays, links resolve.
-- [ ] Save the confirmation, the final commit hash, and every artifact link.
+- [ ] Upload `video/relay-demo.mp4` to YouTube, set it **public**, paste the link into Devpost.
+- [ ] Verify the Bedrock path: `python -m relay check-model --list`, then `RELAY_MODEL_PROVIDER=bedrock python -m relay check-model --live`. If it works, say so in the description and rerun `python eval/run_eval.py --provider bedrock --repeats 1`. If it doesn't, leave the note in the README as it is.
+- [ ] Request the $50 AWS credits before 11 Sep, noon PT. Don't let delivery depend on it.
+- [ ] Publish the posts in `docs/builder-posts/` on builder.aws. "Agents for Humans" has to be in the title. 0.2 points each, 0.6 max.
+- [ ] Open the submission logged out: repo loads, video plays, demo link works.
+- [ ] Save the confirmation, the final commit hash and every link.
 
-## Release audit
+## Done
 
-- [ ] `python -m pytest -q` passes on a fresh clone
-- [ ] `python eval/run_eval.py` exits 0
-- [ ] `python -m relay demo` runs clean from a fresh clone
-- [ ] Someone else followed `docs/JUDGES.md` without asking you a question
-- [ ] No credential appears in the repo, the video, any screenshot, or git history
-- [ ] `docs/architecture.svg` matches what is actually implemented — nothing dropped is shown as deployed
-- [ ] Every claim in the description traces to an artifact in the repo
-- [ ] No invented testimonial, partner logo, hours-saved figure, or meals-delivered number anywhere
+- [x] Public repo, MIT detected by GitHub
+- [x] README, architecture diagram, setup instructions, judge guide
+- [x] Live demo with real secrets, Vercel deployment protection off
+- [x] AWS Builder ID
+- [x] Demo video, 2m43s
 
-## After submission
+## Last checks
 
-Keep the build frozen and judge access alive through judging. Monitor errors without changing the submission's substance; ask the organiser before any material correction. Afterwards: revoke demo credentials, shut down anything paid, and if a real pilot comes of it, agree data handling and retention with the partner first — separately from this entry.
+- `python -m pytest -q` and `python eval/run_eval.py` clean on a fresh clone
+- `python -m relay demo` runs from a fresh clone
+- No credential in the repo, the video, a screenshot or git history
+- The architecture diagram matches what's actually built
+- Nothing in the description that isn't backed by something in the repo
+- No invented testimonial, partner logo or hours-saved number anywhere
+
+## Afterwards
+
+Keep the build frozen and the demo up through judging. Watch for errors but don't change the substance of what was submitted; ask the organiser first if something material needs fixing. Once it's over, rotate the demo credentials, shut down anything paid, and if a real pilot comes out of it, sort out data handling with the partner separately.

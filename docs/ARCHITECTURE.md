@@ -2,7 +2,7 @@
 
 ![Architecture](architecture.svg)
 
-The whole design follows one rule: **the model interprets and drafts; code decides what is permitted and performs every side effect.** Everything below is a consequence of that.
+One rule drives the whole design: the model interprets and drafts, code decides what's allowed and does everything with a side effect. The rest of this follows from that.
 
 ---
 
@@ -30,7 +30,7 @@ detected → validated → contacting → awaiting_response ─┬→ confirmed
 
 Defined in `src/relay/states.py`, with an explicit table of permitted transitions; an illegal transition raises rather than silently corrupting state. Expiry, delivery failure and source cancellation are transitions with recorded reasons, not silent drops.
 
-`contacting` and `awaiting_response` are separate from `confirmed` for one reason: **a sent message is not a filled shift.** Several places in the code and the UI exist purely to keep that distinction visible.
+`contacting` and `awaiting_response` are separate from `confirmed` for one reason: a sent message is not a filled shift. A few things in the code and the UI exist only to keep that distinction visible, because it's an easy one to lose.
 
 ---
 

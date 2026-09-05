@@ -1,112 +1,92 @@
 # Relay
 
-**When a volunteer cancels, Relay closes the coverage gap — and asks the coordinator only when a real decision is needed.**
+When a volunteer cancels a shift, Relay finds the cover. It only interrupts the coordinator when there's a decision a person actually has to make.
 
-Built with the [Strands Agents SDK](https://strandsagents.com) for the Agents for Humans hackathon (Good Neighbour Agents track).
+Built with the [Strands Agents SDK](https://strandsagents.com) for the Agents for Humans hackathon, Good Neighbour Agents track.
 
-**Live demo: <https://relay-volunteer-agent.vercel.app>** — sign in with `judge-70250020`, press **Load demo data**.
-*Hosted on serverless functions, so its database is per-instance and resets when the instance recycles.
-Run it locally (below) for the persistent version with a real background worker — see
-[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).*
-
----
+**Live demo:** https://relay-volunteer-agent.vercel.app — token `judge-70250020`, then press *Load demo data*.
+It's on serverless functions, so the database is per-instance and resets when the instance recycles. Run it locally for the real thing.
 
 ## The problem
 
-A volunteer coordinator at a food pantry gets a message at 08:10: the person on the 10:00 packing shift can't make it. What follows is twenty minutes of unpaid detective work — who else is trained, who has opted in to last-minute asks, who is already on another shift, who asked not to be contacted this week. Then messages go out, and the coordinator has to keep checking whether anyone actually said yes.
+Ten past eight. Someone can't make the ten o'clock packing shift at a food pantry. The coordinator now has to work out who else is trained, who's agreed to last-minute asks, who's already on another shift that morning, and who asked not to be bothered this week. Then message them. Then keep checking whether anyone replied.
 
-Almost all of that is rule-following. A small part of it genuinely needs a person: *the only volunteer with the forklift sign-off is the one who cancelled — what do you want to do?*
+Twenty minutes, and nearly all of it is just applying the organisation's own rules.
+
+The bit that isn't: sometimes the only person with the forklift sign-off is the one who cancelled. That's a real decision and it belongs to a human.
 
 Relay does the first part and stops at the second.
 
-## What it actually does
+It doesn't certify anyone, decide who's suitable, guarantee staffing, or take over safeguarding. The organisation stays the source of truth for who's allowed to do what.
 
-```
-cancellation  →  check the roster against the org's own rules
-              →  ask a bounded set of eligible, opted-in volunteers
-              →  handle silence, declines, and two people saying yes at once
-              →  update the rota only when someone accepts
-              →  hand the coordinator one clear decision when it cannot finish
-              →  leave a receipt that can be checked line by line
-```
+## Running it
 
-It does **not** certify anyone, decide who is suitable, guarantee staffing, or take over safeguarding. The organisation remains the source of eligibility and authority.
-
----
-
-## Try it in 60 seconds
-
-No AWS account, no credentials, no API keys. Python 3.11+.
-
-This is the version worth running: a persistent database, the background worker on a thread,
-and the scripted demo that shows the concurrency and injection cases in one command.
+Python 3.11 or newer. No AWS account, no keys, nothing sent anywhere.
 
 ```bash
-git clone <this-repo> && cd relay
+git clone https://github.com/shaikhmubin02/relay && cd relay
 python -m venv .venv && . .venv/Scripts/activate     # Windows
 # python3 -m venv .venv && source .venv/bin/activate # macOS / Linux
-pip install -e .                                     # Relay + its dependencies
+pip install -e .
 
 python -m relay demo
 ```
 
-`relay demo` runs the whole story and prints what happened at each step: a webhook firing three times, the eligibility decision for all twelve volunteers, the real message that was generated, **two volunteers accepting simultaneously in separate threads**, the receipt, an escalation with nobody eligible, and two prompt-injection attempts.
+`relay demo` walks the whole story and prints what happened: a webhook firing three times, the eligibility call on all twelve volunteers, the actual email it generated, two volunteers accepting simultaneously in separate threads, the receipt, an escalation with nobody eligible, and two attempts to talk it into misbehaving.
 
-Then open the interface:
+For the UI:
 
 ```bash
 python -m relay serve      # http://127.0.0.1:8000
 ```
 
-Sign in with `dev-coordinator-token`, press **Load demo data**, and use the demo controls at the bottom of the page.
+Sign in with `dev-coordinator-token`, press *Load demo data*, and the demo controls are at the bottom of the page.
 
-Run the tests and the evaluation:
+Tests and the evaluation:
 
 ```bash
 pip install -e ".[dev]"
-python -m pytest -q          # 68 tests
-python eval/run_eval.py      # 30 scenarios x 3 repeats
+python -m pytest -q          # 69 tests
+python eval/run_eval.py      # 30 scenarios, 3 repeats
 ```
 
----
+## What a coordinator sees
 
-## What you'll see
+There are three screens and no chat box.
 
-**1 — Quiet overview.** Not a chat box. Decisions that need you, gaps Relay is working, what finished, and today's rota. Every status has a word as well as a colour.
+The **overview** shows decisions waiting on her, gaps Relay is still working, what finished, and today's rota. Every status has a word next to it, not just a colour.
 
-**2 — Decision card.** One question, the evidence behind it, and only the choices the coordinator is actually authorised to make. Including *why each of the other eleven volunteers was not asked*, in a sentence each:
+The **decision card** asks one question and offers only the choices she's actually allowed to make. Underneath it, why each of the other eleven volunteers wasn't asked, in a sentence each:
 
 > Cal Rivera does not hold the organisation-verified certification this shift requires.
 > Gita Rao has reached the contact limit for this week.
 > Hugo Delaine is inside their quiet hours right now.
 
-**3 — Action receipt.** Event id, every candidate considered, every contact attempt, consent, tool results, the roster change with its assignment id, timestamps, and the messages that were sent. Observed behaviour — not the model's private reasoning.
+That's the part I care most about. A confidence score gives her nothing to push back on. "Cal finished that course on Tuesday" is a correction she can act on.
 
-Plus a **test inbox** showing the exact bytes a volunteer would receive, so nothing about the demo has to be taken on trust.
+The **receipt** has the event id, every candidate considered, every message sent, the roster change with its assignment id, and timestamps. It's what Relay did, not what the model was thinking.
 
----
+There's also a test inbox showing the exact bytes a volunteer would get, so none of the demo has to be taken on faith.
 
-## How it works
+## How it's put together
 
 ![Architecture](docs/architecture.svg)
 
-The design rule is one sentence: **the model interprets and drafts; code decides what is permitted and performs every side effect.**
+The rule the whole thing follows: the model interprets and drafts, code decides what's allowed and does everything with a side effect.
 
-### What the model is for
+The model reads the free-text cancellation note, orders the eligible candidates using roster notes a rules engine can't parse, writes the sentence a volunteer actually reads, and works out when a situation needs a person.
 
-- Reading an unstructured cancellation note (*"my car won't start, I could do the 1pm instead"*).
-- Ordering the eligible candidates and saying why, using roster notes a rules engine can't parse.
-- Writing the sentence a volunteer actually reads.
-- Judging when a situation genuinely needs a person, and summarising it factually.
+What it can't do:
 
-### What the model cannot do
+Contact anyone ineligible. The list it hands `request_coverage` is a preference order, not permission. Anyone who isn't eligible right now gets dropped and the attempt is logged.
 
-- **Contact anyone who isn't eligible.** The candidate list it passes to `request_coverage` is treated as a *preference order*, not an authorisation. Anyone ineligible is dropped and the attempt is recorded.
-- **Assign anyone to a shift.** `record_acceptance` is deliberately not in its tool list. A volunteer is scheduled only by clicking their own signed, single-use, expiring link — and eligibility is re-checked at that exact moment.
-- **Write its own message.** Only approved templates are sent. Its one contributed sentence has links, line breaks and length stripped out.
-- **Exceed its blast radius.** Wave size, contact caps, quiet hours, a recipient allowlist, and per-workflow model/tool/message budgets are all enforced in code.
+Assign anyone. `record_acceptance` isn't in its tool list at all. A volunteer gets scheduled when they click their own signed, single-use, expiring link, and eligibility is checked again at that exact moment.
 
-Two invariants are enforced by the database rather than by application logic, because application logic is exactly what races:
+Write its own message. Only approved templates go out, and the one sentence it contributes gets links, newlines and length stripped.
+
+Go wide. Wave size, contact caps, quiet hours, a recipient allowlist and per-workflow budgets for model calls, tool calls and messages are all enforced in code.
+
+Two invariants live in the database rather than in Python, because Python is what races:
 
 ```sql
 CREATE UNIQUE INDEX ux_assignment_confirmed_slot
@@ -114,38 +94,27 @@ CREATE UNIQUE INDEX ux_assignment_confirmed_slot
 CREATE UNIQUE INDEX ux_outbox_idempotency ON outbox(idempotency_key);
 ```
 
-### Strands, specifically
+On the Strands side: one `Agent` with five `@tool` functions, a `HookProvider` where `BeforeToolCall` enforces the per-gap budget and `AfterToolCall` builds the trace on the receipt, `BedrockModel` when credentials are around, and a custom `Model` implementation that runs the same agent offline so you can try all of this with no AWS account.
 
-| Strands feature | How Relay uses it |
-|---|---|
-| `Agent` + `@tool` | One agent, five narrow tools ([`agent/tools.py`](src/relay/agent/tools.py)) |
-| `HookProvider` | `BeforeToolCall` enforces the per-gap budget; `AfterToolCall` builds the action trace shown on the receipt ([`agent/guardrails.py`](src/relay/agent/guardrails.py)) |
-| `BedrockModel` | Claude on Amazon Bedrock, when credentials are present |
-| Custom `Model` provider | A deterministic offline planner so the whole product runs with no account ([`agent/offline_model.py`](src/relay/agent/offline_model.py)) |
+## Failure handling
 
----
+An agent that only works when everything goes right isn't much use here, since the whole job is the messy middle. Each of these is a test that passes.
 
-## Failure handling is the point
-
-A shift-recovery agent that only works when everything goes right is not useful — the whole job is what happens when it doesn't. Each row below is a passing test.
-
-| Failure | What Relay does | Test |
+| What goes wrong | What happens | Test |
 |---|---|---|
-| Duplicate cancellation | Dedupes on source event id before any outreach. Three deliveries → one workflow, one round. | `test_replaying_a_source_event_creates_one_workflow_and_one_round` |
-| Two people accept at once | Atomic conditional insert. Exactly one wins; the other is told *"already covered"*, not *"you already responded"*, and gets an email saying so. | `test_two_simultaneous_acceptances_produce_exactly_one_assignment` |
-| Worker restart | State is on disk before any external action. Restarting resumes and resends nothing. | `test_state_survives_a_restart_without_resending` |
-| Delivery result unknown | Recorded as `unknown` and escalated. Never blindly resent — a resend could double-ask someone who did receive it. | `test_an_indeterminate_send_escalates_instead_of_resending` |
-| Nobody replies | A persisted deadline, re-checked by a worker. Next eligible volunteer, then escalation. No in-memory sleeps. | `test_silence_moves_to_the_next_wave_then_escalates` |
-| Injected instructions | Text arriving in data is data. Tested both with the model declining, and with a *fully compromised* planner asking for all twelve volunteers. | `test_a_fully_compromised_planner_still_cannot_widen_the_blast_radius` |
-| Stale approval | Bound to exact parameters, shift version and expiry. A changed shift voids it. | `test_an_approval_is_void_once_the_shift_changes` |
-| Model failure | Gap stays open and recorded, with backoff. Relay never reports progress the tools did not return. | `test_a_model_failure_leaves_the_gap_open_and_recorded` |
-| Link fetched by a mail scanner | `GET` shows a confirmation page; only `POST` acts. A spam filter cannot sign someone up for a Saturday. | `test_fetching_a_response_link_does_not_accept_the_shift` |
-
----
+| Same cancellation arrives three times | Deduped on source event id before any outreach. One workflow, one round. | `test_replaying_a_source_event_creates_one_workflow_and_one_round` |
+| Two people accept at once | Atomic insert. One wins; the other is told it's already covered, not that they "already responded", and gets an email saying so. | `test_two_simultaneous_acceptances_produce_exactly_one_assignment` |
+| Process restarts mid-flight | State hits disk before any external action. Resumes, resends nothing. | `test_state_survives_a_restart_without_resending` |
+| Mail server neither confirms nor refuses | Recorded as unknown and escalated. Never resent, because a resend might double-ask someone who did get it. | `test_an_indeterminate_send_escalates_instead_of_resending` |
+| Nobody replies | A persisted deadline a worker re-checks. Next eligible volunteer, then escalation. Nothing sleeps in memory. | `test_silence_moves_to_the_next_wave_then_escalates` |
+| A note tells Relay to email everyone | Text in data is data. Tested with the model declining, and again with a planner that fully complied. | `test_a_fully_compromised_planner_still_cannot_widen_the_blast_radius` |
+| Coordinator approves, then the shift changes | Approvals are bound to exact parameters, shift version and an expiry. | `test_an_approval_is_void_once_the_shift_changes` |
+| Model call fails | Gap stays open and recorded, with backoff. Relay never reports progress the tools didn't return. | `test_a_model_failure_leaves_the_gap_open_and_recorded` |
+| A spam filter follows the accept link | `GET` shows a confirmation page. Only `POST` acts. | `test_fetching_a_response_link_does_not_accept_the_shift` |
 
 ## Evaluation
 
-30 synthetic scenarios — 10 ordinary, 5 constraint, 5 silence/expiry, 5 duplicate/concurrent, 5 adversarial. 20 development, **10 held out** (written against the specification and first executed once the workflow was stable). Every scenario also runs eight safety invariants that must hold even in the cases designed to fail.
+30 synthetic scenarios: 10 ordinary, 5 constraint, 5 silence, 5 duplicate or concurrent, 5 adversarial. 20 were used while building. 10 were written from the spec and held back until the workflow was stable. Every scenario also runs eight safety invariants that have to hold even in the cases designed to fail.
 
 ```
 scenarios passing every repeat : 30/30
@@ -157,88 +126,81 @@ trace completeness             : 90/90 (100%)
 human requests on ordinary runs: 0 across 30 runs
 ```
 
-Reproduce with `python eval/run_eval.py`; raw per-run data lands in `eval/results/latest.json`.
+`python eval/run_eval.py` reproduces it; per-run data lands in `eval/results/latest.json`.
 
-**Read this honestly.** This is a small engineering evaluation on invented data with a deterministic planner — not a statistical claim about production reliability, and not a measurement of time saved for a real coordinator. See [docs/EVALUATION.md](docs/EVALUATION.md) for the protocol, what each measure does and does not mean, and what has not been measured.
+Don't read too much into the 100%s. This is a small engineering evaluation on invented data with a deterministic planner. It isn't a production reliability figure and it doesn't measure time saved for anyone. [docs/EVALUATION.md](docs/EVALUATION.md) has the protocol, what each number does and doesn't mean, and the four things I didn't measure.
 
----
+## Running it against Claude on Bedrock
 
-## Running with Claude on Amazon Bedrock
-
-The offline planner exists so the product is inspectable without an account. To run the same agent against Claude:
+The offline planner exists so the product is inspectable without an account. To point the same agent at Claude:
 
 ```bash
 python -m relay check-model --list          # what your account can reach
 export AWS_REGION=us-west-2
 export RELAY_MODEL_ID=global.anthropic.claude-opus-5
-export RELAY_MODEL_PROVIDER=bedrock         # never silently falls back
+export RELAY_MODEL_PROVIDER=bedrock         # won't quietly fall back
 python -m relay check-model --live          # one real turn, end to end
 ```
 
-`RELAY_MODEL_PROVIDER=auto` (the default) prefers Bedrock and falls back to the offline planner when no credentials resolve. `bedrock` fails loudly instead, so a simulated run can't be mistaken for a real one. **Every workflow records which planner ran, and the receipt and the UI both print it.**
+`auto` (the default) prefers Bedrock and drops to the offline planner when no credentials resolve. `bedrock` raises instead, so you can't mistake a simulated run for a real one. Every workflow records which planner ran, and both the receipt and the UI print it.
 
-> **Stated plainly:** the Bedrock path is implemented and wired, but it has not been executed in the environment this was built in, because no AWS credentials were available there. The offline planner is what produced every number on this page. Run `relay check-model --live` before relying on the Bedrock path.
-
----
+One thing I should say plainly: the Bedrock path is written and wired but I never got to execute it, because the machine I built this on had no AWS credentials. Every number above came from the offline planner. `relay check-model --live` verifies that path in one command.
 
 ## Configuration
 
-Everything that could send a message, spend money, or touch a real inbox is off by default. Copy [.env.example](.env.example) to `.env` and read the comments.
+Anything that could send a message, spend money or touch a real inbox is off by default. Copy [.env.example](.env.example) and read the comments.
 
-| Variable | Default | Notes |
+| Variable | Default | |
 |---|---|---|
-| `RELAY_MODEL_PROVIDER` | `auto` | `auto` · `bedrock` · `offline` |
+| `RELAY_MODEL_PROVIDER` | `auto` | `auto`, `bedrock` or `offline` |
 | `RELAY_MODEL_ID` | `global.anthropic.claude-opus-5` | Bedrock inference profile |
-| `RELAY_EMAIL_TRANSPORT` | `fake` | `fake` captures into the test inbox; `smtp` really sends |
-| `RELAY_EMAIL_ALLOWLIST_DOMAINS` | `relay.test` | Enforced at enqueue **and** at send |
-| `RELAY_TOKEN_SECRET` | dev value | Signs volunteer links. Change before any real use. |
-| `RELAY_COORDINATOR_TOKEN` | `dev-coordinator-token` | Sign-in token |
-| `RELAY_INTAKE_TOKEN` | `dev-intake-token` | Separate from the coordinator token on purpose |
-| `RELAY_MAX_TOOL_CALLS` / `_MODEL_CALLS` / `_EMAILS` | 24 / 8 / 6 | Per-workflow hard ceilings |
+| `RELAY_EMAIL_TRANSPORT` | `fake` | `fake` captures to the test inbox; `smtp` really sends |
+| `RELAY_EMAIL_ALLOWLIST_DOMAINS` | `relay.test` | Checked at enqueue and again at send |
+| `RELAY_TOKEN_SECRET` | dev value | Signs volunteer links. Change it before real use. |
+| `RELAY_COORDINATOR_TOKEN` | `dev-coordinator-token` | Sign-in |
+| `RELAY_INTAKE_TOKEN` | `dev-intake-token` | Deliberately separate from the coordinator token |
+| `RELAY_MAX_TOOL_CALLS` / `_MODEL_CALLS` / `_EMAILS` | 24 / 8 / 6 | Per-workflow ceilings |
 
-The interface shows a red banner while development secrets are in use.
+A red banner sits at the top of every page while the development secrets are in use.
 
 ### The demo clock
 
-The seeded scenario runs on **real time plus a stored offset**, so the same 08:10 story reproduces whether you open it at breakfast or at midnight, and a 25-minute response window can be skipped without waiting. Time still moves forward on its own and deadlines still expire by themselves. The offset is displayed in a banner on every page, and it is zero unless you seed the demo.
+The seeded scenario runs on real time plus a stored offset. Two reasons: the same 08:10 story should reproduce whether you open it at breakfast or midnight, and you shouldn't have to wait 25 real minutes to watch a response window lapse. Time still moves forward by itself, deadlines still expire on their own, and the offset is printed in a banner on every page. It's zero until you seed the demo.
 
----
-
-## Project layout
+## Layout
 
 ```
-app.py             serverless entry point (Vercel) - the only host-specific file
+app.py             serverless entry point, the only host-specific file
 src/relay/
-  operations.py    the enforcement boundary — every rule, every write
-  policy.py        deterministic eligibility; one reason code per refusal
-  store.py         SQLite schema; the two uniqueness invariants
-  messaging.py     approved templates, allowlist, durable outbox
+  operations.py    the enforcement boundary: every rule, every write
+  policy.py        eligibility, with a reason code per refusal
+  store.py         schema, and the two uniqueness invariants
+  messaging.py     templates, allowlist, durable outbox
   scheduler.py     deadlines, expiry, delivery reconciliation, backoff
   tokens.py        signed single-use volunteer links
-  states.py        the state machine and its permitted transitions
-  api.py           three coordinator screens, the volunteer link, the JSON API
+  states.py        the state machine
+  api.py           three screens, the volunteer link, the JSON API
   agent/           Strands agent, tools, hooks, model providers, prompt
-data/fixtures/     the synthetic organisation (documented CSV format)
-eval/              30 scenarios, safety invariants, the runner
-tests/             68 tests
-docs/              architecture, evaluation, deployment, demo script, judge guide
+data/fixtures/     the synthetic organisation, as CSV
+eval/              30 scenarios, safety invariants, runner
+tests/             69 tests
+tools/             records the demo video, not part of Relay
 ```
 
----
+## What this isn't
 
-## Limitations
+No real organisation has used Relay. I didn't interview a coordinator and there's no pantry waiting for it. The pantry, the twelve volunteers, and every note are invented.
 
-Stated up front rather than discovered:
+I'm not claiming a time saving. Running a proper manual-versus-assisted baseline needs a real coordinator, and I didn't have one, so there's no honest number to publish.
 
-- **No real organisation has used this.** No user interviews were conducted and no partner is lined up. The pantry, the twelve volunteers and every note are invented. Nothing here measures real-world impact.
-- **No time-saving figure is claimed.** A manual-versus-assisted baseline was not run with a real coordinator, so there is no honest number to publish.
-- **The Bedrock path is unverified in the build environment** (see above).
-- **One organisation, one channel, one timezone.** All times are UTC; the fixtures say so. Multi-org, SMS, calendar sync and i18n are out of scope, not merely unfinished.
-- **`headcount > 1` is modelled but only exercised at 1.** Slots exist in the schema and the uniqueness index; the demo roster uses single-slot shifts.
-- **The offline planner is not a language model.** It makes the product runnable and the tests deterministic. It is not evidence about how a model behaves, and the code says so wherever it matters.
+The Bedrock path is unverified, as above.
 
----
+One organisation, one channel, one timezone. Everything is UTC and the fixtures say so. Multi-org, SMS, calendar sync and translation are out of scope rather than half-finished.
+
+`headcount > 1` is in the schema and the uniqueness index but the demo roster only uses single-slot shifts.
+
+And the offline planner is not a language model. It makes the thing runnable and the tests deterministic. It says nothing about how a model behaves, and the code is labelled that way wherever it matters.
 
 ## Licence
 
-MIT — see [LICENSE](LICENSE). Pre-existing-work disclosures are in [docs/DISCLOSURES.md](docs/DISCLOSURES.md).
+MIT, see [LICENSE](LICENSE). Disclosures in [docs/DISCLOSURES.md](docs/DISCLOSURES.md).
