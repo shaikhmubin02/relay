@@ -72,6 +72,8 @@ There's also a test inbox showing the exact bytes a volunteer would get, so none
 
 ![Architecture](docs/architecture.svg)
 
+*(`docs/architecture.png` is the same diagram exported at 2x, for places that won't take an SVG.)*
+
 The rule the whole thing follows: the model interprets and drafts, code decides what's allowed and does everything with a side effect.
 
 The model reads the free-text cancellation note, orders the eligible candidates using roster notes a rules engine can't parse, writes the sentence a volunteer actually reads, and works out when a situation needs a person.

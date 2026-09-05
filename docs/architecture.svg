@@ -151,7 +151,7 @@
 
   <line x1="820" y1="335" x2="848" y2="335" stroke="#e0b567" stroke-width="2" marker-end="url(#arrow)"/>
   <path d="M 956 400 L 956 430 L 1064 430 L 1064 500" fill="none" stroke="#e0b567" stroke-width="2" marker-end="url(#arrow)"/>
-  <text x="972" y="424" font-size="11" fill="#8a5a00">decisions re-enter enforcement</text>
+  <text x="1064" y="424" font-size="11" fill="#8a5a00" text-anchor="end">decisions re-enter enforcement</text>
 
   <path d="M 40 700 L 22 700 L 22 183 L 56 183" fill="none" stroke="#8b9aa5" stroke-width="1.6" marker-end="url(#arrowGrey)"/>
   <text x="30" y="446" font-size="11" fill="#526575" transform="rotate(-90 30 446)">worker re-enters the loop on the next deadline</text>
