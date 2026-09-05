@@ -49,6 +49,15 @@ vercel deploy --prod
 
 [`vercel.json`](../vercel.json) excludes tests, the evaluation and docs from the function bundle and allows 30s per invocation.
 
+**Turn Vercel's Deployment Protection off for this project.** It is on by default and gates every URL
+except a project domain behind a Vercel login, which would stop a reviewer dead. Settings &rarr;
+Deployment Protection &rarr; Vercel Authentication &rarr; Disabled. Relay has its own coordinator token;
+the platform's SSO wall only blocks the people who are supposed to look at it.
+
+Attach the public hostname as a **project domain**, not as a deployment alias. An alias points at one
+specific deployment and does not move when you redeploy; a project domain follows production
+automatically.
+
 ## A host with a disk, if you want the real thing
 
 Nothing about Relay needs serverless. On any host with a persistent volume — Fly.io, Render, a VM, AgentCore Runtime — drop all four serverless variables and run:
