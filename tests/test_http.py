@@ -159,3 +159,17 @@ def test_a_refused_decision_is_shown_on_the_page(signed_in):
     assert "forklift" in page.text
     assert "Update the volunteer record in the source system first" in page.text
     assert confirmed_for("s_pallet_pm") == []
+
+
+def test_the_receipt_page_shows_current_delivery_status(signed_in, gap):
+    """The stored receipt is written before the outbox flushes, so the page must not
+    keep reporting 'Queued' for a message that has since gone out."""
+    scheduler.tick()
+    page = signed_in.get(f"/workflows/{gap}")
+
+    assert page.status_code == 200
+    assert "Delivered to test inbox" in page.text
+    assert "Queued" not in page.text
+    # The summary is still the one Relay committed to when it finished.
+    stored = store.loads(store.query_one("SELECT document FROM receipts WHERE workflow_id = ?", (gap,))["document"])
+    assert stored["summary"][:40] in page.text

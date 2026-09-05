@@ -18,7 +18,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 1.6198207999987062
+      "wall_seconds": 1.168556600001466
     },
     {
       "assigned": "v_amara",
@@ -38,7 +38,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.17456640000091284
+      "wall_seconds": 0.19060540000282344
     },
     {
       "assigned": "v_amara",
@@ -58,7 +58,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.14799610000045504
+      "wall_seconds": 0.19803099999990081
     },
     {
       "assigned": "v_bo",
@@ -78,7 +78,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.15017159999842988
+      "wall_seconds": 0.20006389999980456
     },
     {
       "assigned": "v_bo",
@@ -98,7 +98,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1128634000015154
+      "wall_seconds": 0.19857220000267262
     },
     {
       "assigned": "v_bo",
@@ -118,7 +118,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.12611219999962486
+      "wall_seconds": 0.21195760000045993
     },
     {
       "assigned": "v_amara",
@@ -138,7 +138,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.12775349999719765
+      "wall_seconds": 0.1971704999996291
     },
     {
       "assigned": "v_amara",
@@ -158,7 +158,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.13268869999956223
+      "wall_seconds": 0.2457338999993226
     },
     {
       "assigned": "v_amara",
@@ -178,7 +178,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.14540929999930086
+      "wall_seconds": 0.22358729999905336
     },
     {
       "assigned": "v_cal",
@@ -197,7 +197,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.12383939999926952
+      "wall_seconds": 0.19647510000140755
     },
     {
       "assigned": "v_cal",
@@ -216,7 +216,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.13258889999997336
+      "wall_seconds": 0.1937017999989621
     },
     {
       "assigned": "v_cal",
@@ -235,7 +235,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.13750309999886667
+      "wall_seconds": 0.1847791000000143
     },
     {
       "assigned": "v_amara",
@@ -255,7 +255,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1477751000020362
+      "wall_seconds": 0.1947887999995146
     },
     {
       "assigned": "v_amara",
@@ -275,7 +275,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1353254999994533
+      "wall_seconds": 0.1901395999993838
     },
     {
       "assigned": "v_amara",
@@ -295,7 +295,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.15210279999882914
+      "wall_seconds": 0.2241046000017377
     },
     {
       "assigned": "v_bo",
@@ -314,7 +314,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1347898999993049
+      "wall_seconds": 0.19141529999978957
     },
     {
       "assigned": "v_bo",
@@ -333,7 +333,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.13320679999742424
+      "wall_seconds": 0.21880629999941448
     },
     {
       "assigned": "v_bo",
@@ -352,7 +352,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.14653189999808092
+      "wall_seconds": 0.20647359999929904
     },
     {
       "assigned": "v_lior",
@@ -372,7 +372,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.14520659999834606
+      "wall_seconds": 0.1847076999983983
     },
     {
       "assigned": "v_lior",
@@ -392,7 +392,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1388693000008061
+      "wall_seconds": 0.22131109999827459
     },
     {
       "assigned": "v_lior",
@@ -412,7 +412,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.13541780000014114
+      "wall_seconds": 0.18818349999855855
     },
     {
       "assigned": "v_lior",
@@ -433,7 +433,7 @@
       "state": "confirmed",
       "tool_calls": 8,
       "trace_complete": true,
-      "wall_seconds": 0.22393240000019432
+      "wall_seconds": 0.2904095999983838
     },
     {
       "assigned": "v_lior",
@@ -454,7 +454,7 @@
       "state": "confirmed",
       "tool_calls": 8,
       "trace_complete": true,
-      "wall_seconds": 0.2051296000026923
+      "wall_seconds": 0.3311342000015429
     },
     {
       "assigned": "v_lior",
@@ -475,7 +475,7 @@
       "state": "confirmed",
       "tool_calls": 8,
       "trace_complete": true,
-      "wall_seconds": 0.22541400000045542
+      "wall_seconds": 0.29609329999948386
     },
     {
       "assigned": "v_bo",
@@ -495,7 +495,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1526424000003317
+      "wall_seconds": 0.21748769999976503
     },
     {
       "assigned": "v_bo",
@@ -515,7 +515,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.13501240000186954
+      "wall_seconds": 0.21926479999820003
     },
     {
       "assigned": "v_bo",
@@ -535,7 +535,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.13676889999987907
+      "wall_seconds": 0.194219000000885
     },
     {
       "assigned": "v_amara",
@@ -555,7 +555,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.13783450000119046
+      "wall_seconds": 0.1892431000014767
     },
     {
       "assigned": "v_amara",
@@ -575,7 +575,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.14957499999945867
+      "wall_seconds": 0.2126155000005383
     },
     {
       "assigned": "v_amara",
@@ -595,7 +595,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.14732659999936004
+      "wall_seconds": 0.17666880000251695
     },
     {
       "assigned": null,
@@ -612,7 +612,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.11934720000135712
+      "wall_seconds": 0.1687899999997171
     },
     {
       "assigned": null,
@@ -629,7 +629,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.13457560000097146
+      "wall_seconds": 0.17167820000031497
     },
     {
       "assigned": null,
@@ -646,7 +646,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.10831820000021253
+      "wall_seconds": 0.16537480000260985
     },
     {
       "assigned": null,
@@ -663,7 +663,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.12363080000068294
+      "wall_seconds": 0.20543460000044433
     },
     {
       "assigned": null,
@@ -680,7 +680,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.12605450000046403
+      "wall_seconds": 0.13436379999984638
     },
     {
       "assigned": null,
@@ -697,7 +697,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1332254999979341
+      "wall_seconds": 0.16793450000113808
     },
     {
       "assigned": null,
@@ -714,7 +714,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.10906139999860898
+      "wall_seconds": 0.25795339999967837
     },
     {
       "assigned": null,
@@ -731,7 +731,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1170964000011736
+      "wall_seconds": 0.16301860000021406
     },
     {
       "assigned": null,
@@ -748,7 +748,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.11465709999902174
+      "wall_seconds": 0.15561580000212416
     },
     {
       "assigned": null,
@@ -765,7 +765,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.12072579999949085
+      "wall_seconds": 0.24808249999841792
     },
     {
       "assigned": null,
@@ -782,7 +782,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.2098124000003736
+      "wall_seconds": 0.1893047999983537
     },
     {
       "assigned": null,
@@ -799,7 +799,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1168455000006361
+      "wall_seconds": 0.15457259999675443
     },
     {
       "assigned": null,
@@ -816,7 +816,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1390272000026016
+      "wall_seconds": 0.2025787999991735
     },
     {
       "assigned": null,
@@ -833,7 +833,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.12470630000098026
+      "wall_seconds": 0.22996199999761302
     },
     {
       "assigned": null,
@@ -850,7 +850,7 @@
       "state": "needs_human",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1252292999997735
+      "wall_seconds": 0.18642439999894123
     },
     {
       "assigned": null,
@@ -871,7 +871,7 @@
       "state": "needs_human",
       "tool_calls": 12,
       "trace_complete": true,
-      "wall_seconds": 0.249024400000053
+      "wall_seconds": 0.44982620000155293
     },
     {
       "assigned": null,
@@ -892,7 +892,7 @@
       "state": "needs_human",
       "tool_calls": 12,
       "trace_complete": true,
-      "wall_seconds": 0.2586020000017015
+      "wall_seconds": 0.4683264000013878
     },
     {
       "assigned": null,
@@ -913,7 +913,7 @@
       "state": "needs_human",
       "tool_calls": 12,
       "trace_complete": true,
-      "wall_seconds": 0.2541010999993887
+      "wall_seconds": 0.31692309999925783
     },
     {
       "assigned": null,
@@ -934,7 +934,7 @@
       "state": "needs_human",
       "tool_calls": 12,
       "trace_complete": true,
-      "wall_seconds": 0.26453960000071675
+      "wall_seconds": 0.40818990000116173
     },
     {
       "assigned": null,
@@ -955,7 +955,7 @@
       "state": "needs_human",
       "tool_calls": 12,
       "trace_complete": true,
-      "wall_seconds": 0.2640384999976959
+      "wall_seconds": 0.3680813999999373
     },
     {
       "assigned": null,
@@ -976,7 +976,7 @@
       "state": "needs_human",
       "tool_calls": 12,
       "trace_complete": true,
-      "wall_seconds": 0.25644849999662256
+      "wall_seconds": 0.4424228999996558
     },
     {
       "assigned": "v_lior",
@@ -997,7 +997,7 @@
       "state": "confirmed",
       "tool_calls": 8,
       "trace_complete": true,
-      "wall_seconds": 0.22115760000087903
+      "wall_seconds": 0.3297402999996848
     },
     {
       "assigned": "v_lior",
@@ -1018,7 +1018,7 @@
       "state": "confirmed",
       "tool_calls": 8,
       "trace_complete": true,
-      "wall_seconds": 0.19957330000033835
+      "wall_seconds": 0.2746475999992981
     },
     {
       "assigned": "v_lior",
@@ -1039,7 +1039,7 @@
       "state": "confirmed",
       "tool_calls": 8,
       "trace_complete": true,
-      "wall_seconds": 0.1985673000017414
+      "wall_seconds": 0.3510323000009521
     },
     {
       "assigned": null,
@@ -1058,7 +1058,7 @@
       "state": "needs_human",
       "tool_calls": 8,
       "trace_complete": true,
-      "wall_seconds": 0.19136060000164434
+      "wall_seconds": 0.3625906000015675
     },
     {
       "assigned": null,
@@ -1077,7 +1077,7 @@
       "state": "needs_human",
       "tool_calls": 8,
       "trace_complete": true,
-      "wall_seconds": 0.19226440000056755
+      "wall_seconds": 0.41157400000156485
     },
     {
       "assigned": null,
@@ -1096,7 +1096,7 @@
       "state": "needs_human",
       "tool_calls": 8,
       "trace_complete": true,
-      "wall_seconds": 0.20644910000191885
+      "wall_seconds": 0.3072596000019985
     },
     {
       "assigned": "v_bo",
@@ -1116,7 +1116,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.15264250000109314
+      "wall_seconds": 0.1945646999993187
     },
     {
       "assigned": "v_bo",
@@ -1136,7 +1136,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.13571779999983846
+      "wall_seconds": 0.37131999999837717
     },
     {
       "assigned": "v_bo",
@@ -1156,7 +1156,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1371703000004345
+      "wall_seconds": 0.2650140999976429
     },
     {
       "assigned": "v_amara",
@@ -1176,7 +1176,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.14343099999678088
+      "wall_seconds": 0.27971940000134055
     },
     {
       "assigned": "v_amara",
@@ -1196,7 +1196,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.14010939999934635
+      "wall_seconds": 0.235351700001047
     },
     {
       "assigned": "v_amara",
@@ -1216,47 +1216,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.13667849999910686
-    },
-    {
-      "assigned": "v_amara",
-      "case_id": "dup-02",
-      "category": "duplicate",
-      "contacted": [
-        "v_amara",
-        "v_bo"
-      ],
-      "failures": [],
-      "human_requests": 0,
-      "invariant_failures": [],
-      "messages": 5,
-      "model_calls": 5,
-      "passed": true,
-      "split": "dev",
-      "state": "confirmed",
-      "tool_calls": 4,
-      "trace_complete": true,
-      "wall_seconds": 0.14149349999934202
-    },
-    {
-      "assigned": "v_amara",
-      "case_id": "dup-02",
-      "category": "duplicate",
-      "contacted": [
-        "v_amara",
-        "v_bo"
-      ],
-      "failures": [],
-      "human_requests": 0,
-      "invariant_failures": [],
-      "messages": 5,
-      "model_calls": 5,
-      "passed": true,
-      "split": "dev",
-      "state": "confirmed",
-      "tool_calls": 4,
-      "trace_complete": true,
-      "wall_seconds": 0.18059309999807738
+      "wall_seconds": 0.22833759999775793
     },
     {
       "assigned": "v_bo",
@@ -1276,7 +1236,47 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.15436100000079023
+      "wall_seconds": 0.19268580000061775
+    },
+    {
+      "assigned": "v_amara",
+      "case_id": "dup-02",
+      "category": "duplicate",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 5,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.22807079999984126
+    },
+    {
+      "assigned": "v_amara",
+      "case_id": "dup-02",
+      "category": "duplicate",
+      "contacted": [
+        "v_amara",
+        "v_bo"
+      ],
+      "failures": [],
+      "human_requests": 0,
+      "invariant_failures": [],
+      "messages": 5,
+      "model_calls": 5,
+      "passed": true,
+      "split": "dev",
+      "state": "confirmed",
+      "tool_calls": 4,
+      "trace_complete": true,
+      "wall_seconds": 0.25976909999735653
     },
     {
       "assigned": "v_amara",
@@ -1296,7 +1296,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1563945000016247
+      "wall_seconds": 0.24103850000028615
     },
     {
       "assigned": "v_bo",
@@ -1316,10 +1316,10 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1615036000002874
+      "wall_seconds": 0.2738262000020768
     },
     {
-      "assigned": "v_bo",
+      "assigned": "v_amara",
       "case_id": "dup-03",
       "category": "duplicate",
       "contacted": [
@@ -1336,7 +1336,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.15345130000059726
+      "wall_seconds": 0.28793059999952675
     },
     {
       "assigned": "v_amara",
@@ -1356,7 +1356,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.2818465999989712
+      "wall_seconds": 0.2836040999973193
     },
     {
       "assigned": "v_amara",
@@ -1376,7 +1376,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1802176999990479
+      "wall_seconds": 0.6535832999979903
     },
     {
       "assigned": "v_amara",
@@ -1396,7 +1396,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.19772179999927175
+      "wall_seconds": 0.3304181999992579
     },
     {
       "assigned": "v_amara",
@@ -1416,7 +1416,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.15952630000174395
+      "wall_seconds": 0.2062841999977536
     },
     {
       "assigned": "v_amara",
@@ -1436,10 +1436,10 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.16840550000051735
+      "wall_seconds": 0.2641595999994024
     },
     {
-      "assigned": "v_bo",
+      "assigned": "v_amara",
       "case_id": "dup-05",
       "category": "duplicate",
       "contacted": [
@@ -1456,7 +1456,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1848773000019719
+      "wall_seconds": 0.23878070000137086
     },
     {
       "assigned": "v_amara",
@@ -1476,7 +1476,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.14057749999847147
+      "wall_seconds": 0.23174199999994016
     },
     {
       "assigned": "v_amara",
@@ -1496,7 +1496,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1313676999998279
+      "wall_seconds": 0.19946469999922556
     },
     {
       "assigned": "v_amara",
@@ -1516,7 +1516,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.1329604999991716
+      "wall_seconds": 0.20058739999876707
     },
     {
       "assigned": null,
@@ -1537,7 +1537,7 @@
       "state": "needs_human",
       "tool_calls": 9,
       "trace_complete": true,
-      "wall_seconds": 0.1912722000015492
+      "wall_seconds": 0.33930019999752403
     },
     {
       "assigned": null,
@@ -1558,7 +1558,7 @@
       "state": "needs_human",
       "tool_calls": 9,
       "trace_complete": true,
-      "wall_seconds": 0.19308140000066487
+      "wall_seconds": 0.525689499998407
     },
     {
       "assigned": null,
@@ -1579,7 +1579,7 @@
       "state": "needs_human",
       "tool_calls": 9,
       "trace_complete": true,
-      "wall_seconds": 0.21788070000184234
+      "wall_seconds": 0.2835400000003574
     },
     {
       "assigned": "v_amara",
@@ -1599,7 +1599,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.3559151999979804
+      "wall_seconds": 0.22029019999899901
     },
     {
       "assigned": "v_amara",
@@ -1619,7 +1619,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.4939307999993616
+      "wall_seconds": 0.2575116000007256
     },
     {
       "assigned": "v_amara",
@@ -1639,7 +1639,7 @@
       "state": "confirmed",
       "tool_calls": 4,
       "trace_complete": true,
-      "wall_seconds": 0.2752847000010661
+      "wall_seconds": 0.20635680000123102
     },
     {
       "assigned": null,
@@ -1659,7 +1659,7 @@
       "state": "needs_human",
       "tool_calls": 5,
       "trace_complete": true,
-      "wall_seconds": 0.2676629000015964
+      "wall_seconds": 0.20821479999722214
     },
     {
       "assigned": null,
@@ -1679,7 +1679,7 @@
       "state": "needs_human",
       "tool_calls": 5,
       "trace_complete": true,
-      "wall_seconds": 0.15097529999911785
+      "wall_seconds": 0.18677440000101342
     },
     {
       "assigned": null,
@@ -1699,7 +1699,7 @@
       "state": "needs_human",
       "tool_calls": 5,
       "trace_complete": true,
-      "wall_seconds": 0.1629149000000325
+      "wall_seconds": 0.2152550999999221
     },
     {
       "assigned": null,
@@ -1721,7 +1721,7 @@
       "state": "needs_human",
       "tool_calls": 9,
       "trace_complete": true,
-      "wall_seconds": 0.3034306000008655
+      "wall_seconds": 0.6758484999991197
     },
     {
       "assigned": null,
@@ -1743,7 +1743,7 @@
       "state": "needs_human",
       "tool_calls": 9,
       "trace_complete": true,
-      "wall_seconds": 0.23956450000332552
+      "wall_seconds": 0.3379874000020209
     },
     {
       "assigned": null,
@@ -1765,7 +1765,7 @@
       "state": "needs_human",
       "tool_calls": 9,
       "trace_complete": true,
-      "wall_seconds": 0.2257409000012558
+      "wall_seconds": 0.420095700003003
     }
   ],
   "summary": {
@@ -1825,8 +1825,8 @@
       "pct": 100.0
     },
     "wall_seconds_per_run": {
-      "max": 1.62,
-      "median": 0.15
+      "max": 1.169,
+      "median": 0.222
     }
   }
 }

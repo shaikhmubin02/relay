@@ -298,8 +298,15 @@ def workflow_detail(request: Request, workflow_id: str) -> Response:
         escalation["evidence"] = store.loads(escalation["evidence"]) or {}
         escalation["options"] = store.loads(escalation["options"]) or []
 
+    # Build the receipt from live rows so delivery status, the roster and the trace
+    # are current. The stored document is the archived snapshot from the moment Relay
+    # finished; keep its summary and outcome, because those are what it committed to.
     receipt_row = store.query_one("SELECT * FROM receipts WHERE workflow_id = ?", (workflow_id,))
-    receipt = store.loads(receipt_row["document"]) if receipt_row else operations.build_receipt(workflow_id)
+    receipt = operations.build_receipt(workflow_id)
+    if receipt_row is not None:
+        stored = store.loads(receipt_row["document"]) or {}
+        receipt["summary"] = stored.get("summary", "")
+        receipt["outcome"] = stored.get("outcome", "")
 
     # Prefer the set Relay actually decided against; fall back to a live read.
     candidates = operations.decision_snapshot(workflow_id) or operations.candidate_set_for(row).public()
