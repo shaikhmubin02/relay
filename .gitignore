@@ -12,3 +12,6 @@ dist/
 build/
 *.egg-info/
 .eval_out/
+
+.vercel
+.env*

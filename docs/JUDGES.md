@@ -1,6 +1,10 @@
 # For reviewers
 
-Everything below runs on a laptop with **no AWS account, no API key, and no network access**. Python 3.11 or newer is the only prerequisite.
+**Fastest look: <https://relay-volunteer-agent.vercel.app>** — sign in with `judge-70250020`, press **Load demo data**, then follow
+[step 3](#3-use-the-interface) below. It is a serverless instance, so its database is per-instance and
+resets when the instance recycles, and the deadline worker runs on page load rather than on a thread.
+Both are stated in a banner on every page. Everything else on this page runs locally with
+**no AWS account, no API key, and no network access**. Python 3.11 or newer is the only prerequisite.
 
 ---
 
@@ -39,6 +43,7 @@ python -m relay serve
 ```
 
 Open <http://127.0.0.1:8000>, sign in with **`dev-coordinator-token`**, press **Load demo data**.
+(On the hosted demo the token is **`judge-70250020`** and the data is already loaded.)
 
 Suggested five-minute path:
 

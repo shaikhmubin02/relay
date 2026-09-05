@@ -22,7 +22,9 @@ Everything here is ready to paste, plus the things only you can do. Deadline: **
 
 **Stated plainly:** no real organisation has used this, no time saving is claimed because none was measured, and the published numbers came from a deterministic offline planner that ships alongside the Bedrock path so reviewers can run everything with no AWS account. Limitations are in the README and in `docs/DISCLOSURES.md`.
 
-**Run it:** `pip install -e . && python -m relay demo` — no account, no keys, nothing sent.
+**Try it:** live demo at <https://relay-volunteer-agent.vercel.app> (sign in with `judge-70250020`, press *Load demo data*). Or locally, with no account and nothing sent: `pip install -e . && python -m relay demo`.
+
+**Repo:** <https://github.com/shaikhmubin02/relay> (MIT)
 
 **Built with:** Strands Agents SDK 1.54, Amazon Bedrock (Claude), Python, FastAPI, SQLite.
 
@@ -33,9 +35,9 @@ Everything here is ready to paste, plus the things only you can do. Deadline: **
 - [ ] **Verify the Bedrock path.** `python -m relay check-model --list`, then `RELAY_MODEL_PROVIDER=bedrock python -m relay check-model --live`. If it works, say so in the description and re-run `python eval/run_eval.py --provider bedrock --repeats 1`. **If it does not, leave the honesty note in the README exactly as written.**
 - [ ] Register, confirm eligibility, record your AWS Builder ID.
 - [ ] Request the $50 AWS credits (deadline 11 Sep, noon PT). Do not make delivery depend on approval.
-- [ ] Push to a **public** repository with the MIT licence visible in the About section.
+- [x] Public repository, MIT licence detected by GitHub and visible in About — <https://github.com/shaikhmubin02/relay>
 - [ ] Record the video (script: `docs/DEMO_SCRIPT.md`), upload to YouTube or Vimeo, set to **public**, confirm under 5:00.
-- [ ] Give judges a working link — a deployed instance or the repo plus `docs/JUDGES.md`. If deploying, set `RELAY_TOKEN_SECRET` and `RELAY_COORDINATOR_TOKEN` to real values and put the coordinator token in the submission notes.
+- [x] Live demo deployed with real secrets — <https://relay-volunteer-agent.vercel.app>, coordinator token `judge-70250020` (publish this in the submission notes so judges can sign in).
 - [ ] Publish up to three builder.aws posts with **"Agents for Humans"** in the title (drafts in `docs/builder-posts/`). 0.2 points each, 0.6 maximum.
 - [ ] Check the submission logged out: repo loads, video plays, links resolve.
 - [ ] Save the confirmation, the final commit hash, and every artifact link.

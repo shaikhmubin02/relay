@@ -4,6 +4,11 @@
 
 Built with the [Strands Agents SDK](https://strandsagents.com) for the Agents for Humans hackathon (Good Neighbour Agents track).
 
+**Live demo: <https://relay-volunteer-agent.vercel.app>** — sign in with `judge-70250020`, press **Load demo data**.
+*Hosted on serverless functions, so its database is per-instance and resets when the instance recycles.
+Run it locally (below) for the persistent version with a real background worker — see
+[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).*
+
 ---
 
 ## The problem
@@ -32,6 +37,9 @@ It does **not** certify anyone, decide who is suitable, guarantee staffing, or t
 ## Try it in 60 seconds
 
 No AWS account, no credentials, no API keys. Python 3.11+.
+
+This is the version worth running: a persistent database, the background worker on a thread,
+and the scripted demo that shows the concurrency and injection cases in one command.
 
 ```bash
 git clone <this-repo> && cd relay
@@ -199,6 +207,7 @@ The seeded scenario runs on **real time plus a stored offset**, so the same 08:1
 ## Project layout
 
 ```
+app.py             serverless entry point (Vercel) - the only host-specific file
 src/relay/
   operations.py    the enforcement boundary — every rule, every write
   policy.py        deterministic eligibility; one reason code per refusal
@@ -212,7 +221,7 @@ src/relay/
 data/fixtures/     the synthetic organisation (documented CSV format)
 eval/              30 scenarios, safety invariants, the runner
 tests/             68 tests
-docs/              architecture, evaluation, demo script, judge guide
+docs/              architecture, evaluation, deployment, demo script, judge guide
 ```
 
 ---
